@@ -56,7 +56,7 @@ ROOT_URLCONF = 'HospitalSite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'template'],
+        'DIRS': [os.path.join(BASE_DIR, 'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,3 +124,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = ['projectapp.backends.EmailBackend', 'django.contrib.auth.backends.ModelBackend']

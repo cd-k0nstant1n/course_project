@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="bg" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Влизане</title> 
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Влизане</span></div>
+        <form action="#">
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Имейл" required>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Парола" required>
+          </div>
+          <div class="pass"><a href="#">Забравена парола?</a></div>
+          <div class="row button">
+            <input type="submit" value="Влезте">
+          </div>
+          <div class="signup-link">Нямате акаунт? <a href="{% url 'register' %}" target="_blank">Регистриране</a>.</div>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>

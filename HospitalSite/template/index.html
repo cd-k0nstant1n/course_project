@@ -55,7 +55,12 @@
                             <a href = "#" class = "nav-link">Contact</a>
                         </li>
                     </ul>
-                    <div class = "search-bar">
+                    <div class="search-bar">
+                        <a class="btn btn-light-blue">
+                            Запази час
+                        </a>
+                    </div>
+                    <!-- <div class = "search-bar">
                         <form>
                             <div class = "search-bar-box flex">
                                 <span class = "search-icon flex">
@@ -64,7 +69,7 @@
                                 <input type = "search" class = "search-control" placeholder="Search here">
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div> 
             </div>
         </nav>
@@ -77,7 +82,7 @@
                     <p class = "text text-md">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, nulla odit esse necessitatibus corporis voluptatem?</p>
                     <div class = "btn-group">
                         <a href = "#" class = "btn btn-white">Learn More</a>
-                        <a href = "#" class = "btn btn-light-blue">Sign In</a>
+                        <a href = "{% url 'register' %}" class = "btn btn-light-blue">Sign In</a>
                     </div>
                 </div>
                 <div class = "header-inner-right">
@@ -426,6 +431,6 @@
 
 
     <!-- custom js -->
-    <script src = "{% static 'js/script.js' %}"></script>
+    <script src = "{% static 'js/scripts.js' %}"></script>
 </body>
 </html>
