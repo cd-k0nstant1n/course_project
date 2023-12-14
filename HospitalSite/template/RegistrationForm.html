@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/RegistrationForm.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <title>Регистрация</title>
+  </head>
+<body>
+  
+  <div class="container">
+
+    <div class="title">Създаване на акаунт</div>
+
+      <div class="content">
+
+        <form method="POST" action="{% url 'register' %}" onsubmit="return validate()">
+          {% csrf_token %}
+          <div class="chose-role">
+            <input type="radio" onclick="javascript:roleCheck()" name="role" value="patient" id="dot-1" required>
+            <input type="radio" onclick="javascript:roleCheck()" name="role" value="doctor" id="dot-2">
+
+            <div class="category">
+
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="role">Пациент</span>
+              </label>
+
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="role">Доктор</span>
+			        </label>
+
+            </div>
+
+          </div>
+
+        <div id="Form">
+
+        </div>
+  
+        <div class="button">
+          <input type="submit" value="Регистриране">
+        </div>
+
+        {% for message in messages %}
+        <span style="color:red">{{message}}</span>
+        {% endfor %}
+
+      </form>
+
+      <div class="logInButton">
+        <a href="{% url 'login' %}">Вече имаш акаунт?</a>
+      </div>
+
+    </div>
+    
+  </div>
+
+  <script>
+    function roleCheck() {
+      if (document.getElementById('dot-1').checked) {
+        fetch("{% url 'registerPatient' %}").then(response=> response.text()).then(text=> document.getElementById('Form').innerHTML = text);
+      }
+      else if(document.getElementById('dot-2').checked){
+        fetch("{% url 'registerDoctor' %}").then(response=> response.text()).then(text=> document.getElementById('Form').innerHTML = text);
+      }
+    }
+  </script>
+  <script src="{% static '../static/js/scripts.js' %}""></script>
+</body>
+</html>

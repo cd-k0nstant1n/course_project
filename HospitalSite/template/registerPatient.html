@@ -1,0 +1,38 @@
+{% load static %}
+<!-- <form meathod="post" action="{% url 'registerPatient' %}"> -->
+<div class="user-details" id="ifChecked">
+
+  <div class="input-box">
+    <span class="details">Първо име</span>
+    <input type="text" id="yes" name="first_name" placeholder="Въведете първо име" required>
+  </div>
+
+  <div class="input-box">
+    <span class="details">Фамилия</span>
+    <input type="text" id="yes" name="last_name" placeholder="Въведете фамилия" required>
+  </div>
+
+  <div class="input-box">
+    <span class="details">Имейл</span>
+    <input type="email" name = "email" placeholder="Въведете имейл" required>
+  </div>
+
+  <div class="input-box">
+    <span class="details">Телефонен номер</span>
+    <input type="tel" name = "phone" placeholder="Въведете телефон" required>
+  </div>
+
+  <div class="input-box" >
+    <span class="details">Парола</span>
+    <input type="password" placeholder="Въведете паролата" name="pass1" id="pass1" onkeyup="validate()" required>
+    <span id="error" style="color:red" class="error_pass"></span>
+  </div>
+
+  <div class="input-box" >
+    <span class="details">Потвърждение на парола</span>
+    <input type="password" placeholder="Потвърдете парола" name="pass2" id="pass2" onkeyup="validate()" required>
+  </div>
+  
+</div>
+<!-- </form> -->
+<script src="{% static '../static/js/scripts.js' %}""></script>
