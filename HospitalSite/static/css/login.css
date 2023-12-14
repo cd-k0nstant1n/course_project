@@ -83,6 +83,14 @@ form .row input::placeholder{
 .wrapper form .pass a:hover{
   text-decoration: underline;
 }
+.wrapper form .error{
+  margin: 8px 0 20px 0;
+}
+.wrapper form .error a{
+  color: red;
+  font-size: 17px;
+  text-decoration: none;
+}
 .wrapper form .button input{
   color: #fff;
   font-size: 20px;
