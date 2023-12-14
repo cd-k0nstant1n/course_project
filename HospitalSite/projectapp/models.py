@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
     
 class CustomUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,  blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     phone = models.CharField(max_length=13)
     date_of_birth = models.DateField(null=True, blank=True)
     specialty = models.CharField(max_length=100, null=True, blank=True)
