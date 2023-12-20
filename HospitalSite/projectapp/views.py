@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import auth, User
 from .models import CustomUser
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def index(request):
@@ -27,7 +28,6 @@ def register(request):
                     messages.info(request, 'Phone already used')
                     return redirect('register')
                 else:
-                    pass1 = make_password(pass1)
                     user = User.objects.create_user(username=email, email=email, password=pass1, first_name=fname, last_name=lname)
                     CustomUser.objects.create(user=user, phone=phone, role=role)
                     user.save();
@@ -53,7 +53,6 @@ def register(request):
                     messages.info(request, 'Phone already used')
                     return redirect('register')
                 else:
-                    pass1 = make_password(pass1)
                     user = User.objects.create_user(username=email, email=email, password=pass1, first_name=fname, last_name=lname)
                     CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty)
                     user.save();
@@ -74,13 +73,27 @@ def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        user = auth.authenticate(request, email=email, password=password)
+        user = authenticate(request, username=email, password=password)
         
         if user is not None:
             auth.login(request, user)
             return redirect('/')
         else:
-            messages.info(request, 'Credentials invalid')
-            return redirect('login')
+            try:
+                user = User.objects.get(username=email)
+                if check_password(password, user.password):
+                    auth.login(request, user)
+                    return redirect('/')
+                else:
+                    messages.info(request, 'Credentials invalid')
+                    return redirect('login')
+            except User.DoesNotExist:
+                messages.info(request, 'Credentials invalid')
+                return redirect('login')
     else:
         return render(request, 'login.html')
+
+ 
+def logout(request):
+    auth.logout(request)
+    return redirect('login')

@@ -54,6 +54,11 @@
                         <li class = "nav-item">
                             <a href = "#" class = "nav-link">Contact</a>
                         </li>
+                        {% if user.is_authenticated %}
+          <li><a class="getstarted scrollto" href="{% url 'logout' %}"">Logout</a></li>
+          {% else %}
+          <li><a class="getstarted scrollto" href="{% url 'login' %}">Login or Signup</a></li>
+          {% endif %}
                     </ul>
                     <div class="search-bar">
                         <a class="btn btn-light-blue">

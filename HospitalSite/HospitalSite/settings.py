@@ -126,11 +126,4 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'projectapp.CustomUser'
-
-AUTHENTICATION_BACKENDS = ['projectapp.backends.EmailBackend', 'django.contrib.auth.backends.ModelBackend']
-# AUTHENTICATION_BACKENDS = [
-#     'projectapp.backends.UserManager',
-#     'django.contrib.auth.backends.ModelBackend',
-# ]
 
