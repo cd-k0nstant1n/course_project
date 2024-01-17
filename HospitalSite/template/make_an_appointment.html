@@ -1,0 +1,134 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Appointment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0050d5; /* Dark Blue */
+            padding: 1rem;
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            color: #0050d5; /* Dark Blue */
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+            border: 1px solid #0050d5; /* Dark Blue */
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #0050d5; /* Dark Blue */
+            color: #ffffff; /* White */
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #16c5ff; /* Slightly lighter blue on hover */
+        }
+
+        .close{
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            background: #ffffff;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+        }
+        
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <img src="{% static 'images/close.png' %}" alt="close" class="close">
+
+    <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        <!-- <label for="name">Име:</label>
+        <input type="text" id="name" name="name" required > -->
+
+        <label for="doctor">Изберете доктор:</label>
+        <select id="doctor" name="doctor">
+            <option value="null"></option>
+            {% for doctor in doctor_info %}
+            
+            <option value="{{doctor.last_name}}">Dr. {{doctor.last_name}}</option>
+            {% endfor %}
+            
+        </select>
+
+        <label for="service">Изберете услуга:</label>
+        <select id="service" name="service">
+            <option value="null"></option>
+            <option value="visit">Преглед</option>
+            <option value="chemotherapy">Химиотерапия</option>
+            <option value="physiotherapy">Физиотерапия</option>           
+            <option value="vaccine">Слагане на ваксина</option>           
+            <option value="research">Пускане на изследвания</option>           
+        </select>
+
+        <label for="symptoms">Опишете симптомите или детайли за услуга:</label>
+        <textarea id="symptoms" name="symptoms" rows="4" required></textarea>
+
+        <label for="appointment_date">Preferred Date:</label>
+        <input type="date" id="appointment_date" name="appointment_date" required>
+
+        <label for="appointment_time">Preferred Time:</label>
+        <select id="appointment_time" name="appointment_time" required>
+            <option value="null"></option>
+            <option value="8-9">8-9</option>
+            <option value="9-10">9-10</option>
+            <option value="10-11">10-11</option>
+            <option value="11-12">11-12</option>
+            <option value="14-15">14-15</option>
+            <option value="15-16">15-16</option>
+            <option value="16-17">16-17</option>
+            <option value="17-18">17-18</option>
+            <option value="20-21">20-21</option>
+            <option value="21-22">21-22</option>
+            <option value="22-23">22-23</option>
+        </select>
+    
+        <button type="submit">Запази час</button>
+        
+    </form>
+
+</body>
+</html>

@@ -18,3 +18,11 @@ class CustomUser(models.Model):
             self.user = User.objects.create(username='default_username')
             self.user.save()
         super().save(*args, **kwargs)
+        
+class Appointment(models.Model):
+    patient = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='patient_appointments', blank=True, null=True)
+    doctor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='doctor_appointments', blank=True, null=True)
+    service = models.CharField(max_length=255, blank=True, null=True) 
+    details = models.CharField(max_length=255, blank=True, null=True)
+    appointment_date = models.DateField()
+    appointment_time = models.CharField(max_length=10)
