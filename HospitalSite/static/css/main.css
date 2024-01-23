@@ -81,7 +81,7 @@ a{
     color: var(--light-color);
 }
 .btn-group{
-    display: -webkit-box;
+    /* display: -webkit-box; */
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -1039,3 +1039,6 @@ button[class ^= navbar]:hover{
 .heading-appointment{
     color: #000;
 }
+::-webkit-scrollbar {
+        width: 0; /* For Chrome, Safari, and newer Edge browsers */
+    }

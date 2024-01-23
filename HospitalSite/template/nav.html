@@ -24,9 +24,6 @@
                     <a href = "{% url 'aboutus' %}" class = "nav-link">За нас</a>
                 </li>
                 <li class = "nav-item">
-                    <a href = "#" class = "nav-link">Услуги</a>
-                </li>
-                <li class = "nav-item">
                     <a href = "#" class = "nav-link">Доктори</a>
                 </li>
                 <li class = "nav-item">
@@ -36,12 +33,13 @@
                     <a href = "#" class = "nav-link">Аптека</a>
                 </li>
                 {% if user.is_authenticated %}
+                <li class = "nav-item">
+                    <a href = "{% url 'index' %}" class = "nav-link"">Запази час</a>
+                </li>
   <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}"">Излизане</a></li>
     </ul>
   <div class="search-bar">
-    <a href="#head" class="btn btn-light-blue" id="appointment">
-        Запази час
-    </a>
+    <a href=""><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic2.png' %}" alt="profilepic"></a>
 </div>
   {% else %}
 </ul>
