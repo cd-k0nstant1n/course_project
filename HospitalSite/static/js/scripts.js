@@ -31,3 +31,22 @@ function validate() {
       return true;
     }
   }
+
+  document.querySelectorAll(".appointment").forEach(function(button) {
+    button.addEventListener("click", function() {
+        document.querySelector(".popup").style.display = "flex";
+    });
+});
+  document.querySelector(".close").addEventListener("click", function(){
+      document.querySelector(".popup").style.display = "none";
+  })
+  
+  document.getElementById('service').addEventListener('change', function() {
+    var datetimeFields = document.getElementById('appointment_date');
+    if (this.value === "") {
+      datetimeFields.classList.add('hidden');
+    } else {
+      datetimeFields.classList.remove('hidden');
+    }
+  });
+  

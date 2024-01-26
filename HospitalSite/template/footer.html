@@ -1,0 +1,67 @@
+ {% load static%}
+ 
+ <link rel = "stylesheet" href = "{% static 'css/normalize.css' %}">
+    <!-- custom css -->
+    <link rel = "stylesheet" href = "{% static 'css/main.css' %}">
+ <!-- footer  -->
+ <footer id = "footer" class = "footer text-center">
+    <div class = "container">
+        <div class = "footer-inner text-white py grid">
+            <div class = "footer-item">
+                <h3 class = "footer-head">за нас</h3>
+                <div class = "icon">
+                    <img src = "{% static 'images/MedicureBlack.png' %}">
+                </div>
+                <p class = "text text-md">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis saepe incidunt fugiat optio corporis ea!</p>
+                <address>
+                    Медицинско заведение <br>
+                    Улица Перуша  <br>
+                    град Правец <br>
+                    България
+                </address>
+            </div>
+
+            <div class = "footer-item">
+                <h3 class = "footer-head">тагове</h3>
+                <ul class = "tags-list flex">
+                    <li>медицинска грижа</li>
+                    <li>спешни случаи</li>
+                    <li>терапия</li>
+                    <li>операция</li>
+                    <li>лекарства</li>
+                </ul>
+            </div>
+
+            <div class = "footer-item">
+                <h3 class = "footer-head">Други линкове</h3>
+                <ul>
+                    <li><a href = "#" class = "text-white">Нашият план</a></li>
+                    <li><a href = "#" class = "text-white">Privacy Policy</a></li>
+                    <li><a href = "#" class = "text-white">Дъска със запазени часове</a></li>
+                </ul>
+            </div>
+
+            <div class = "footer-item">
+                <h3 class = "footer-head">запази час</h3>
+                <p class = "text text-md">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, omnis.</p>
+                <ul class = "appointment-info">
+                    <li>8:00 - 12:00</li>
+                    <li>14:00 - 18:00</li>
+                    <li>20:00 - 23:00</li>
+                    <br>
+                    <li>
+                        <i class = "fas fa-envelope"></i>
+                        <span>medicure.bg@gmail.com</span>
+                    </li>
+                    <li>
+                        <i class = "fas fa-phone"></i>
+                        <a href="#" class="appointment"><span style="color: white;">Запази час</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        
+    </div>
+</footer>
+
