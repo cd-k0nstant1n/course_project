@@ -31,15 +31,21 @@
                 <div class = "header-inner-left">
                     <h1>Най-надеждният<br> <span>здравен помощник</span></h1>
                     <p class = "lead">Най-добрите медицински услуги за теб и твоите деца</p>
-                    {% if user.is_authenticated %}
-                    <p class = "text text-gig">Здравейте, {{user.first_name}} {{user.last_name}}</p>
+                    {% if user.is_authenticated  %}
+                        {% if user_profile.role == 'patient' %}
+                        <p class = "text text-gig">Здравейте, {{user.first_name}} {{user.last_name}}</p>
                     <div class = "btn-group">
-                    <a href = "#" class = "btn btn-white">Спешен случай!?</a>
-                    <a href = "#" class = "btn btn-light-blue appointment">Запази час</a>
+                        <a href = "#" class = "btn btn-white">Спешен случай!?</a>
+                        <a href = "#" class = "btn btn-light-blue appointment">Запази час</a>
                     </div>
+                        {% else %}
+                        <p class = "text text-lg">Още не сте член? Присъединете се за да запазите час и за да влезете в аптеката.</p>
+                        <div class = "btn-group">
+                        <a href = "#" class = "btn btn-white">Спешен случай!?</a>
+                        {% endif %}
                     {% else %}
-                    <p class = "text text-lg">Още не сте член? Присъединете се за да запазите час и за да влезете в аптеката.</p>
-                    <div class = "btn-group">
+                        <p class = "text text-lg">Още не сте член? Присъединете се за да запазите час и за да влезете в аптеката.</p>
+                        <div class = "btn-group">
                         <a href = "#" class = "btn btn-white">Спешен случай!?</a>
                         <a href = "{% url 'register' %}" class = "btn btn-light-blue">Регистриране</a>
                     </div>

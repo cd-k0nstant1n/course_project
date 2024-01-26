@@ -2,8 +2,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    color: #fff;
+    color: #000;
     background-color: #0050d5;
+    
 }
 ::-webkit-scrollbar {
     width: 0; /* For Chrome, Safari, and newer Edge browsers */
@@ -13,10 +14,18 @@ body {
     padding: 4em;
     border-radius: 8px;
 }
+.heading{
+    margin-bottom: 2em !important;
+}
+.text-lg{
+    font-size: 2rem;
+    font-weight: 500;
+}
 .grid {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-bottom: 3rem;
 }
 figure {
     margin: 0;
@@ -27,7 +36,7 @@ figcaption {
 }
 section {
     margin-top: 2em;
-    background-color: #16c5ff;
+    background-color: #dedede;
     padding: 20px;
     border-radius: 8px;
 }
@@ -52,4 +61,25 @@ section {
 }
 .heading-appointment{
     color: #000;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 2em;
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+
+}
+@media screen and (max-width: 1128px) {
+    .container {
+        width: 90%;
+        padding: 2em;
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+
 }

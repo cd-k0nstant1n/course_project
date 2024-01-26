@@ -156,6 +156,9 @@ h1, h2, h3{
     text-align: center;
 }
 
+.text-top{
+    text-align: start;
+}
 /* header */
 .header{
     min-height: 100vh;
@@ -340,7 +343,10 @@ button[class ^= navbar]:hover{
     margin-bottom: 6rem;
 }
 .about-right{
-    margin-top: 16.8rem;
+    margin-top: 15.8rem;
+}
+.about-right-text{
+    margin-top: 4rem;
 }
 .about-left .text{
     margin: 5.6rem 0;
