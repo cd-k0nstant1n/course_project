@@ -26,3 +26,9 @@ class Appointment(models.Model):
     details = models.CharField(max_length=255, blank=True, null=True)
     appointment_date = models.DateField()
     appointment_time = models.CharField(max_length=10)
+    STATUS_CHOICES = [
+        ('Одобрен' , 'approved'),
+        ('Преглежда се', 'pending'),
+        ('Отказано', 'rejected')
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, null=True, blank=True, default='Преглежда се')
