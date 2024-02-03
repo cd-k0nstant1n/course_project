@@ -17,7 +17,7 @@
             <h1 class="heading-appointment">Запазване на час:</h1>
             {% include 'make_an_appointment.html' %} 
             {% for message in messages %}
-            <span style="color:red">{{message}}</span>
+            <script>alert('{{message}}')</script>
             {% endfor %}
         </div>
     </div>
