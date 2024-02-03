@@ -227,5 +227,5 @@ select {
 
 select:focus {
   outline: none;
-  border-color:rgb(87, 141, 70);
+  border-color:#0050d5;
 }

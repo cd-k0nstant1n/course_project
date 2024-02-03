@@ -5,10 +5,27 @@ from django.contrib.auth.models import auth, User
 from .models import CustomUser, Appointment
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from .forms import *
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        form = send_email_form(request.POST)
+        
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
+            send_mail(subject, message, email, ['medicure.bg@gmail.com'])
+            return redirect('index')
+    else:
+        form = send_email_form()
+    
+    return render(request, 'index.html', {'form': form})
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -20,6 +37,8 @@ def register(request):
             phone = request.POST['phone']
             pass1 = request.POST['pass1']
             pass2 = request.POST['pass2']
+            gender = request.POST['gender']
+            birthday = request.POST['birthday']
         
             if pass1 == pass2:
                 if User.objects.filter(email = email).exists():
@@ -30,7 +49,7 @@ def register(request):
                     return redirect('register')
                 else:
                     user = User.objects.create_user(username=email, email=email, password=pass1, first_name=fname, last_name=lname)
-                    CustomUser.objects.create(user=user, phone=phone, role=role)
+                    CustomUser.objects.create(user=user, phone=phone, role=role, gender=gender, date_of_birth=birthday)
                     user.save();
                     return redirect('login')         
             else:
@@ -44,6 +63,8 @@ def register(request):
             specialty = request.POST['specialty']
             pass1 = request.POST['pass1']
             pass2 = request.POST['pass2']
+            gender = request.POST['gender']
+            birthday = request.POST['birthday']
             # code = request.POST['code']
     
             if pass1 == pass2:
@@ -55,7 +76,7 @@ def register(request):
                     return redirect('register')
                 else:
                     user = User.objects.create_user(username=email, email=email, password=pass1, first_name=fname, last_name=lname)
-                    CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty)
+                    CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty, gender=gender, date_of_birth=birthday)
                     user.save();
                     return redirect('login')         
             else:
@@ -105,4 +126,7 @@ def aboutus(request):
 def doctors(request):
 
     return render(request, 'doctors.html')
+
+def profilePage(request):
+    return render(request, 'profile.html')
 
