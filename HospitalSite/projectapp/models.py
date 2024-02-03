@@ -12,6 +12,13 @@ class CustomUser(models.Model):
         ('patient', 'Patient')
     ]
     role = models.CharField(max_length=7, choices=ROLE_CHOICES)
+    forgot_password_token = models.CharField(max_length=100, null=True, blank=True)
+    GENDER_CHOICES = [
+        ('male' , 'Male'),
+        ('female', 'Female'),
+        ('other' , 'Other')
+    ]
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='not set', blank=True, null=True)
     def save(self, *args, **kwargs):
         # Create a User instance if it doesn't exist
         if not self.user_id:
@@ -26,3 +33,12 @@ class Appointment(models.Model):
     details = models.CharField(max_length=255, blank=True, null=True)
     appointment_date = models.DateField()
     appointment_time = models.CharField(max_length=10)
+    STATUS_CHOICES = [
+        ('Одобрен' , 'approved'),
+        ('Преглежда се', 'pending'),
+        ('Отказано', 'rejected')
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, null=True, blank=True, default='Преглежда се')
+    
+class Code(models.Model):
+    pass

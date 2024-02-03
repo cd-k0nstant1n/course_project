@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моят профил | Medicure</title>
+    <link rel="icon" href="{% static 'images/tab-logo.png' %}" type="image">
+    <link rel="stylesheet" href="{% static 'css/MyProfile.css' %}">
+</head>
+<body>
+
+    {% include 'nav.html' %}
+<main>
+    <br><br><br><br>
+<div class="container-form">
+<div class="user-details">
+
+    <h3>Моят Профил:</h3>
+<div class="input-box">
+  <div class="user-details-else"></div>
+    <span class="details">Първо име</span>
+  <input type="text"  name="first_name" placeholder="Въведете първо име" value="{{user.first_name}}" readonly>
+  </div>
+
+  <div class="input-box">
+    <span class="details">Фамилия</span>
+    <input type="text" name="last_name"  value="{{user.last_name}}" readonly>
+  </div>
+  
+  <div class="input-box">
+    <span class="details">Имейл</span>
+    <input type="email" name = "mail" placeholder="Въведете имейл" value="{{user.email}}" readonly>
+  </div>
+
+  <div class="input-box">
+    <span class="details">Дата на раждане</span>
+    <input type="text" name = ""  value="{{user_profile.date_of_birth}}" readonly>
+  </div>
+
+  <div class="input-box">
+    <span class="details">Пол</span>
+    <input type="text" name = "" value="{{user_profile.gender}}" readonly>
+  </div>
+
+  <div class="input-box">
+    <span class="details">Телефонен номер</span>
+    <input type="tel" name = "phone"  value="{{user_profile.phone}}" readonly>
+  </div>
+  <hr>
+  <h3>Промяна на паролата:</h3>
+ 
+<form class="user-details" method="POST" action="reset_password.php">
+<div class="input-box" >
+    <span class="details">Настояща парола</span>
+    <input type="password"name="current_password" placeholder="Настояща парола" required>
+  </div>
+
+  <div class="input-box" >
+    <span class="details">Парола</span>
+    <input type="password" name = "new_password" placeholder="Въведете нова парола" name="pass" id="pass1" onkeyup="validate()" required>
+    <span id="error" style="color:red" class="error_pass"></span>
+  </div>
+
+  <div class="input-box-center" >
+    <span class="details">Потвърждение на парола</span>
+    <input type="password" placeholder="Потвърдете парола" name="pass" id="pass2" onkeyup="validate()" required>
+  </div>
+</div>
+<div class="button">
+    <input type="submit" value="Запазване">
+</div>
+
+</div>
+</div>
+</main>
+<script src="{% static 'js/scripts.js' %}"></script>
+
+</body>
+</html>

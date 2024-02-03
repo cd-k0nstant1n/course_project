@@ -38,6 +38,21 @@
       <input type="password" placeholder="Потвърдете парола" name="pass2" id="pass2" onkeyup="validate()"  required>
     </div>
 
+    <div class="input-box" >
+      <span class="details">Рождена дата</span>
+      <input type="date" placeholder="Въведете рождена дата" name="birthday">
+    </div>
+
+    <div class="input-box">
+      <span class="details">Изберете пол</span>
+    <select name="gender" id="subject-select" required>
+      <option value="chose-subject" selected disabled></option>
+      <option value="male">Мъж</option>
+      <option value="female">Жена</option>
+      <option value="other">Друго</option>
+    </select>
+  </div>
+
     <div class="input-box">
       <span class="details">Код за достъп</span>
       <input type="text" name = "code" placeholder="Въведете код" required>
