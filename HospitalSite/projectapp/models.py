@@ -25,7 +25,7 @@ class CustomUser(models.Model):
             self.user = User.objects.create(username='default_username')
             self.user.save()
         super().save(*args, **kwargs)
-        
+               
 class Appointment(models.Model):
     patient = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='patient_appointments', blank=True, null=True)
     doctor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='doctor_appointments', blank=True, null=True)
@@ -41,4 +41,7 @@ class Appointment(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, null=True, blank=True, default='Преглежда се')
     
 class Code(models.Model):
-    pass
+    code = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.code

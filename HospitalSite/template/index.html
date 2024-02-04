@@ -38,10 +38,18 @@
                         <a href = "#" class = "btn btn-white">Спешен случай!?</a>
                         <a href = "#" class = "btn btn-light-blue appointment">Запази час</a>
                     </div>
-                        {% else %}
-                        <p class = "text text-lg">Още не сте член? Присъединете се за да запазите час и за да влезете в аптеката.</p>
+                        {% elif user_profile.role == 'doctor' %}
+                        <p class = "text text-lg">Здравейте, Dr. {{user.first_name}} {{user.last_name}}</p>
                         <div class = "btn-group">
                         <a href = "#" class = "btn btn-white">Спешен случай!?</a>
+                        {% else %}
+                        
+                        <form action="{% url 'index' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="generate_code" class = "btn btn-white">Генериране на код</button>
+                            <p class = "text text-lg">{{code}}</p>
+                        </form>
+                        
                         {% endif %}
                     {% else %}
                         <p class = "text text-lg">Още не сте член? Присъединете се за да запазите час и за да влезете в аптеката.</p>

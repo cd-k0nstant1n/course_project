@@ -33,28 +33,40 @@
                     <a href = "#" class = "nav-link">Аптека</a>
                 </li>
                 {% if user.is_authenticated %}
-                <li class = "nav-item">
-                    <a href = "#" class = "nav-link appointment">Запази час</a>
-                </li>
-                <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}"">Излизане</a></li>
-            </ul>
+                
                     {% if user_profile.role == 'patient' and user_profile.gender == 'male' %}
+                    <li class = "nav-item">
+                        <a href = "#" class = "nav-link appointment">Запази час</a>
+                    </li>
+                    <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}"">Излизане</a></li>
+                </ul>
                     <div class="search-bar">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic1.png' %}" alt="profilepic"></a>
                     </div>
                     {% elif  user_profile.role == 'doctor' and user_profile.gender == 'male' %}
+                    <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}"">Излизане</a></li>
+                </ul>
                     <div class="search-bar">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 60px; width:60px;" src="{% static 'images/profilepic3.png' %}" alt="profilepic"></a>
                     </div>
                     {% elif user_profile.role == 'patient' and user_profile.gender == 'female' %}
+                    <li class = "nav-item">
+                        <a href = "#" class = "nav-link appointment">Запази час</a>
+                    </li>
+                    <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}"">Излизане</a></li>
+                </ul>
                     <div class="search-bar">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic2.png' %}" alt="profilepic"></a>
                     </div>
                     {% elif  user_profile.role == 'doctor' and user_profile.gender == 'female' %}
+                    <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}"">Излизане</a></li>
+                </ul>
                     <div class="search-bar">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic4.png' %}" alt="profilepic"></a>
                     </div>
                     {% else %}
+                    <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}"">Излизане</a></li>
+                </ul>
                     <div class="search-bar">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 50px; width:50px;" src="{% static 'images/profilepic5.png' %}" alt="profilepic"></a>
                     </div>
