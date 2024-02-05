@@ -8,6 +8,8 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from .forms import *
 import re, string, random
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 def index(request):
@@ -101,10 +103,10 @@ def login(request):
                     auth.login(request, user)
                     return redirect('/')
                 else:
-                    messages.info(request, 'Credentials invalid')
+                    messages.info(request, 'Невалидна информация')
                     return redirect('login')
             except User.DoesNotExist:
-                messages.info(request, 'Credentials invalid')
+                messages.info(request, 'Невалидна информация')
                 return redirect('login')
     else:
         return render(request, 'login.html')
@@ -121,6 +123,34 @@ def doctors(request):
 
     return render(request, 'doctors.html')
 
+@login_required
 def profilePage(request):
+    if request.method == 'POST':
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+        user = request.user
+        regex_pass = re.compile('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
+
+        if not user.check_password(current_password):
+            messages.info(request, 'Невалидна настояща парола.')
+            return redirect('profile')    
+        elif not regex_pass.match(new_password):
+            messages.info(request, 'Новата парола трябва да е поне 8 символа дълга и да съдържа букви и цифри.')
+            return redirect('profile')
+        elif current_password == new_password:
+            messages.info(request, "Новата парола не може да е същата като старата.")
+            return redirect('profile')
+        elif new_password != confirm_password:
+            messages.info(request, "Паролите не съвпадат.")
+            return redirect('profile')
+        else:
+            user.set_password(new_password)
+            user.save()
+            update_session_auth_hash(request, user)
+            messages.info(request, 'Успешно променихте паролата си.')
+            return redirect('profile')
+        
+            
     return render(request, 'profile.html')
 

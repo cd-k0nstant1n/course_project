@@ -53,26 +53,33 @@
   <hr>
   <h3>Промяна на паролата:</h3>
  
-<form class="user-details" method="POST" action="reset_password.php">
-<div class="input-box" >
+<form class="user-details" method="POST" action="{% url 'profile' %}">
+  {% csrf_token %}
+  <div class="input-box" >
     <span class="details">Настояща парола</span>
     <input type="password"name="current_password" placeholder="Настояща парола" required>
   </div>
 
   <div class="input-box" >
     <span class="details">Парола</span>
-    <input type="password" name = "new_password" placeholder="Въведете нова парола" name="pass" id="pass1" onkeyup="validate()" required>
+    <input type="password" name = "new_password" placeholder="Въведете нова парола" id="pass1" onkeyup="validate()" required>
     <span id="error" style="color:red" class="error_pass"></span>
   </div>
 
   <div class="input-box-center" >
     <span class="details">Потвърждение на парола</span>
-    <input type="password" placeholder="Потвърдете парола" name="pass" id="pass2" onkeyup="validate()" required>
+    <input type="password" placeholder="Потвърдете парола" name="confirm_password" id="pass2" onkeyup="validate()" required>
   </div>
+  
 </div>
 <div class="button">
-    <input type="submit" value="Запазване">
+  <input type="submit" value="Промяна на паролата">
 </div>
+</form>
+
+  {% for message in messages %}
+  <span>{{message}}</span>
+  {% endfor %}
 
 </div>
 </div>
