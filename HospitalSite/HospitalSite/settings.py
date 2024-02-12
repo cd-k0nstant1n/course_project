@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-eiv1796^g@fm84uar^zuao&o%^!uhrp#+76r-&y%1g=@-xk)8+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '9f0ad29e26186b'
-EMAIL_HOST_PASSWORD = 'd309e7d7462dc9'
-EMAIL_PORT = '2525'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'medicure.bg@gmail.com'
+EMAIL_HOST_PASSWORD = 'hqnufavhkpmxeblo'
+EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 ALLOWED_HOSTS = []
 
@@ -71,7 +71,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'projectapp.context_processors.add_user_profile',
-                'projectapp.context_processors.add_popup'
+                # 'projectapp.context_processors.add_popup'
             ],
         },
     },

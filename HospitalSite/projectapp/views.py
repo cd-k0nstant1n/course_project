@@ -10,26 +10,29 @@ from .forms import *
 import re, string, random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from django.conf import settings
 
 # Create your views here.
+def generate_code():
+    characters = string.ascii_letters + string.digits + string.punctuation
+    random_code = ''.join(random.choice(characters) for _ in range(50))
+    Code.objects.update_or_create(id=1, defaults={'code': random_code})
+    
 def index(request):
     if request.method == 'POST':
         form = send_email_form(request.POST)
         
         if form.is_valid():
             subject = form.cleaned_data['subject']
-            email = form.cleaned_data['email']
             message = form.cleaned_data['message']
 
-            send_mail(subject, message, email, ['medicure.bg@gmail.com'])
+            send_mail(subject, message,settings.EMAIL_HOST_USER,  [settings.EMAIL_HOST_USER], fail_silently=False)
             return redirect('index')
     else:
         form = send_email_form()
     
     if request.method == 'POST' and 'generate_code' in request.POST:
-        characters = string.ascii_letters + string.digits + string.punctuation
-        random_code = ''.join(random.choice(characters) for _ in range(50))
-        Code.objects.update_or_create(id=1, defaults={'code': random_code})
+        generate_code()
         return redirect('index')
 
     code = Code.objects.get(id=1)
@@ -69,7 +72,9 @@ def register(request):
             if not Code.objects.filter(code=code).exists():
                 messages.info(request, 'Невалиден код за доктор.')
                 return redirect('register')
-
+            else:
+                generate_code()
+        
         user = User.objects.create_user(username=email, email=email, password=pass1, first_name=fname, last_name=lname)
         if role == 'patient':
             CustomUser.objects.create(user=user, phone=phone, role=role, gender=gender, date_of_birth=birthday)
@@ -150,7 +155,32 @@ def profilePage(request):
             update_session_auth_hash(request, user)
             messages.info(request, 'Успешно променихте паролата си.')
             return redirect('profile')
-        
-            
+                 
     return render(request, 'profile.html')
+
+def reset_password(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+    
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+           return HttpResponse("Този имейл не същесвува.")
+
+        temp_password = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+    
+        user.password = make_password(temp_password)
+        user.save()
+
+        send_mail(
+            subject="Вашата временна парола",
+            message=f"Това е вашата времена парола може да се смени при влизане от профил страницата: {temp_password}",
+            from_email="medicure.bg@gmail.com",
+            recipient_list=[email],
+        )            
+        messages.info(request, 'Успешно променихте паролата си.')
+        return redirect('login')
+    
+    return render(request, 'reset_password.html')
+
 
