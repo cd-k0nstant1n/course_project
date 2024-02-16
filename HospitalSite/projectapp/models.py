@@ -19,6 +19,7 @@ class CustomUser(models.Model):
         ('other' , 'Other')
     ]
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='not set', blank=True, null=True)
+    room_num = models.IntegerField(null=True, blank=True)
     def save(self, *args, **kwargs):
         # Create a User instance if it doesn't exist
         if not self.user_id:
@@ -34,12 +35,12 @@ class Appointment(models.Model):
     appointment_date = models.DateField()
     appointment_time = models.CharField(max_length=10)
     STATUS_CHOICES = [
-        ('Одобрен' , 'approved'),
-        ('Преглежда се', 'pending'),
-        ('Отказано', 'rejected')
+        ('Одобрен' , 'Одобрен'),
+        ('Преглежда се', 'Преглежда се'),
+        ('Отказано', 'Отказано')
     ]
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, null=True, blank=True, default='Преглежда се')
-    
+
 class Code(models.Model):
     code = models.CharField(max_length=50, null=True, blank=True)
 

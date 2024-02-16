@@ -71,7 +71,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'projectapp.context_processors.add_user_profile',
-                # 'projectapp.context_processors.add_popup'
+                'projectapp.context_processors.add_popup'
             ],
         },
     },

@@ -10,7 +10,7 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('aboutus', views.aboutus, name='aboutus'),
-    path('doctors', views.doctors, name='doctors'),
+    path('appointments', views.appointments, name='appointments'),
     path('profile', views.profilePage, name='profile'),
     path('reset_password/', views.reset_password, name='reset_password'),
     

@@ -81,7 +81,13 @@ def register(request):
             return redirect('login')
         else:
             specialty = request.POST['specialty']
-            CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty, gender=gender, date_of_birth=birthday)
+            room = request.POST['room']
+            if CustomUser.objects.filter(room_num=room).exists():
+                CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty, gender=gender, date_of_birth=birthday, room_num=room)
+            else:
+                messages.info(request, 'Tази стая вече е използвана.')
+                return redirect('register')
+              
             return redirect('login')
 
     return render(request, 'RegistrationForm.html')
@@ -124,9 +130,11 @@ def logout(request):
 def aboutus(request):
     return render(request,'aboutus.html')
 
-def doctors(request):
-
-    return render(request, 'doctors.html')
+def appointments(request):
+    user_email = request.user.email
+    appointments = Appointment.objects.filter(patient__user__email=user_email)
+    
+    return render(request, 'appointments.html', {'appointments': appointments})
 
 @login_required
 def profilePage(request):
