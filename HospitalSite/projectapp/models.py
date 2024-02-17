@@ -37,7 +37,9 @@ class Appointment(models.Model):
     STATUS_CHOICES = [
         ('Одобрен' , 'Одобрен'),
         ('Преглежда се', 'Преглежда се'),
-        ('Отказано', 'Отказано')
+        ('Отказан', 'Отказан'),
+        ('Пропуснат', 'Пропуснат'),
+        ('Изпълнен', 'Изпълнен')
     ]
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, null=True, blank=True, default='Преглежда се')
 

@@ -31,11 +31,17 @@
                 {% for appointment in appointments %}
                 <tr>
                     <td> {{appointment.service}} </td> 
-                    <td> Seoul </td>
-                    <td> Dr.Dencho </td>
-                    <td> 17 Dec, 2022 </td>
+                    <td> {{appointment.doctor.room_num}} </td>
+                    <td> Dr.{{appointment.doctor.user.last_name}} </td>
+                    <td> {{appointment.appointment_time}}/{{appointment.appointment_date}} </td>
                     <td>
-                        <p class="status delivered">Delivered</p>
+                        {% if  appointment.status == "Преглежда се" %}
+                        <p class="status pending">{{appointment.status}}</p>
+                        {% elif  appointment.status == "Одобрен" %}
+                        <p class="status approved">{{appointment.status}}</p>
+                        {% else %}
+                        <p class="status cancelled">{{appointment.status}}</p>
+                        {% endif %}
                     </td>
                     <td> <strong> $128.90 </strong></td>
                 </tr>
@@ -86,5 +92,7 @@
 
     
         {% include 'footer.html' %}
+    
+        <script src = "{% static 'js/scripts.js' %}"></script>
 </body>
 </html>
