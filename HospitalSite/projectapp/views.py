@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import auth, User
 from .models import CustomUser, Appointment, Code
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from .forms import *
@@ -36,8 +36,13 @@ def index(request):
         return redirect('index')
 
     code = Code.objects.get(id=1)
+
+    context = {
+        'form': form, 
+        'code': code
+    }
     
-    return render(request, 'index.html', {'form': form, 'code': code})
+    return render(request, 'index.html', context)
 
 
 
@@ -131,10 +136,34 @@ def aboutus(request):
     return render(request,'aboutus.html')
 
 def appointments(request):
-    user_email = request.user.email
-    appointments = Appointment.objects.filter(patient__user__email=user_email)
+
+    if request.method == 'POST':
+        appointment_id = request.POST['appointment_id']
+        status = request.POST['status']
+
+        Appointment.objects.filter(id=appointment_id).update(status=status)
+        return redirect('appointments')
+
+
+    if request.user.is_authenticated:
+        user_email = request.user.email
+        patient_appointments = Appointment.objects.filter(patient__user__email=user_email)
+        doctor_appointments = Appointment.objects.filter(doctor__user__email=user_email)
+        appointments = Appointment.objects.all()
+        context = {
+                   'appointments' : appointments,
+                   'patient_appointments': patient_appointments,
+                   'doctor_appointments' : doctor_appointments
+                   }
+        return render(request, 'appointments.html', context)
+    else:
+        html_content = """
+            <br><br><br><br><br>
+            <p><strong> Влезте или се регистирайте за да видите графика си.</strong></p>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        """
     
-    return render(request, 'appointments.html', {'appointments': appointments})
+    return render(request, 'appointments.html', {'html_content' : html_content})
 
 @login_required
 def profilePage(request):
@@ -182,7 +211,7 @@ def reset_password(request):
 
         send_mail(
             subject="Вашата временна парола",
-            message=f"Това е вашата времена парола може да се смени при влизане от профил страницата: {temp_password}",
+            message=f"Това е вашата времената ви парола може да се смени при влизане в профила ви от профил страницата: {temp_password}",
             from_email="medicure.bg@gmail.com",
             recipient_list=[email],
         )            

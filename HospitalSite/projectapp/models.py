@@ -33,7 +33,7 @@ class Appointment(models.Model):
     service = models.CharField(max_length=255, blank=True, null=True) 
     details = models.CharField(max_length=255, blank=True, null=True)
     appointment_date = models.DateField()
-    appointment_time = models.CharField(max_length=10)
+    appointment_time = models.CharField(max_length=12)
     STATUS_CHOICES = [
         ('Одобрен' , 'Одобрен'),
         ('Преглежда се', 'Преглежда се'),

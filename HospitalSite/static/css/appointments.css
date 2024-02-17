@@ -30,7 +30,6 @@
     height: 10%;
     background-color: #fff4;
     padding: .8rem 1rem;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,13 +60,7 @@
     height: 1.2rem;
 }
 
-.table__header .input-group input {
-    width: 100%;
-    padding: 0 .5rem 0 .3rem;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
+
 
 .table__body {
     width: 95%;
@@ -104,14 +97,6 @@ table {
     margin-top: 15rem;
 }
 
-td img {
-    width: 36px;
-    height: 36px;
-    margin-right: .5rem;
-    border-radius: 50%;
-
-    vertical-align: middle;
-}
 
 table, th, td {
     border-collapse: collapse;
@@ -124,7 +109,6 @@ thead th {
     top: 0;
     left: 0;
     background-color: #d5d1defe;
-    cursor: pointer;
     text-transform: capitalize;
 }
 
@@ -185,6 +169,14 @@ tbody tr.hide td img {
     background-color: #ebc474;
 }
 
+.status.done {
+    background-color: #16c5ff;
+    color: #0050d5;
+}
+.status.missed {
+    background-color: grey;
+}
+
 @media (max-width: 1000px) {
     td:not(:first-of-type) {
         min-width: 12.1rem;
@@ -214,4 +206,43 @@ thead th.asc span.icon-arrow{
 }
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.approved{
+    background-color: #86e49d;
+    color: #006b21;
+}
+.approved:hover{
+    background-color: rgba(29, 173, 60, 0.459);
+}
+.pending{
+    background-color: #ebc474;
+}
+.pending:hover{
+    background-color: #ebc37481;
+}
+.cancelled{
+    background-color: #d893a3;
+    color: #b30021;
+}
+.cancelled:hover{
+    background-color: #d893a391;
+}
+.done{
+    background-color: #16c5ff;
+    color: #0050d5;
+}
+.done:hover{
+    background-color: #16c5ff75;
+}
+.missed{
+    background-color: grey;
+}
+.missed:hover{
+    background-color: lightgrey;
+}
+.form-appointments{
+    background: none;
+    margin: 0;
+    padding: 0;
 }
