@@ -19,6 +19,7 @@
             <thead>
                 <tr>
                     <th> Услуга </th>
+                    <th> Детайли </th>
                     <th> Стая </th>
                     <th> Доктор </th>
                     <th> Час/дата </th>
@@ -31,6 +32,7 @@
                 {% for appointment in patient_appointments %}
                 <tr>
                     <td> {{appointment.service}} </td> 
+                    <td> {{appointment.details}} </td>
                     <td> {{appointment.doctor.room_num}} </td>
                     <td> Dr. {{appointment.doctor.user.last_name}} </td>
                     <td> {{appointment.appointment_time}}/{{appointment.appointment_date}} </td>
@@ -47,11 +49,25 @@
                         <p class="status done">{{appointment.status}}</p>
                         {% endif %}
                     </td>
-                    <td> </td>
+                    <td>
+                        <form method="post" class="form-appointments">
+                            {% csrf_token %}
+                            <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                            <input type="hidden" name="role" value="{{ user_profile.role }}">
+                            {% if appointment.status == "Преглежда се" %}
+                            <button class="cancelled" name="status" value="Отказан"> Откажи</button>
+                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"> edit</a>
+                            {% elif appointment.status == "Отказан" %}
+                            <button class="approved" name="status" value="Преглежда се"> Възобнови</button>
+                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"> edit</a>
+                            {% endif %}
+                            
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
-            {% elif user_profile.role == 'doctor' or user_profile.role == 'admin' %}
+            {% elif user_profile.role == 'doctor' %}
             
             <thead>
                 <tr>
@@ -89,6 +105,7 @@
                         <form method="post" class="form-appointments">
                             {% csrf_token %}
                             <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                            <input type="hidden" name="role" value="{{ user_profile.role }}">
                             <button class="pending" name="status" value="Преглежда се">Преглежда се </button>
                             <button class="approved" name="status" value="Одобрен"> Одобрен </button>
                             <button class="cancelled" name="status" value="Отказан"> Отказан </button>
@@ -101,7 +118,61 @@
                 {% endfor %}
             
             </tbody>
+            {% elif user_profile.role == 'admin' %}
+
+            <thead>
+                <tr>
+                    <th> Пациент </th>
+                    <th> Доктор</th>
+                    <th> Услуга </th>
+                    <th> Детайли </th>
+                    <th> Час/дата </th>
+                    <th> Статус </th>
+                    <th> Действие </th>
+                    
+                </tr>
+            </thead>
             
+            <tbody>
+                {% for appointment in appointments %}
+                <tr onclick="window.location.href=''; " style="cursor:pointer;">
+                    <td> {{appointment.patient.user.first_name}} {{appointment.patient.user.last_name}}</td>
+                    <td> Dr. {{appointment.doctor.user.last_name}} </td>
+                    <td> {{appointment.service}} </td>
+                    <td> {{appointment.details}} </td>
+                    <td> {{appointment.appointment_time}}/{{appointment.appointment_date}} </td>
+                    <td>
+                        {% if  appointment.status == "Преглежда се" %}
+                        <p class="status pending">{{appointment.status}}</p>
+                        {% elif  appointment.status == "Одобрен" %}
+                        <p class="status approved">{{appointment.status}}</p>
+                        {% elif  appointment.status == "Отказан" %}
+                        <p class="status cancelled">{{appointment.status}}</p>
+                        {% elif  appointment.status == "Пропуснат" %}
+                        <p class="status missed">{{appointment.status}}</p>	
+                        {% elif  appointment.status == "Изпълнен" %}
+                        <p class="status done">{{appointment.status}}</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="post" class="form-appointments">
+                            {% csrf_token %}
+                            <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                            <input type="hidden" name="role" value="{{ user_profile.role }}">
+                            <button class="pending" name="status" value="Преглежда се">Преглежда се </button>
+                            <button class="approved" name="status" value="Одобрен"> Одобрен </button>
+                            <button class="cancelled" name="status" value="Отказан"> Отказан </button>
+                            <button class="missed" name="status" value="Пропуснат">Пропуснат </button>
+                            <button class="done" name="status" value="Изпълнен">Изпълнен </button>
+                            <button class="delete" name="action" value="delete"><i class="fa-solid fa-trash-can"></i> </button>
+                        </form> 
+                    </td>
+                </tr>
+                    
+                {% endfor %}
+            
+            </tbody>
+
             {% endif %}
             
         </table>

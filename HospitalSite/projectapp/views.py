@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import auth, User
@@ -11,6 +11,7 @@ import re, string, random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
+from datetime import datetime, timezone
 
 # Create your views here.
 def generate_code():
@@ -138,13 +139,37 @@ def aboutus(request):
 def appointments(request):
 
     if request.method == 'POST':
+        user_role = request.POST['role']
         appointment_id = request.POST['appointment_id']
-        status = request.POST['status']
-
-        Appointment.objects.filter(id=appointment_id).update(status=status)
+        
+        if user_role == 'admin':
+            action = request.POST.get('action', '')
+            
+            appointment = get_object_or_404(Appointment, id=appointment_id) 
+            
+            if action == 'delete':
+                appointment.delete()
+            else:
+                status = request.POST['status']
+                appointment.status = status
+                appointment.save()              
+            return redirect('appointments')   
+        elif user_role == 'doctor':    
+            status = request.POST['status']
+            Appointment.objects.filter(id=appointment_id).update(status=status)   
+        elif user_role == 'patient':
+            appointment_id = request.POST['appointment_id']
+            appointment = get_object_or_404(Appointment, id=appointment_id)
+            status = request.POST['status']
+            
+            if status == 'Преглежда се' and not Appointment.objects.filter(doctor=appointment.doctor, appointment_date=appointment.appointment_date, appointment_time=appointment.appointment_time).exclude(status='Отказан').exists():
+                Appointment.objects.filter(id=appointment_id).update(status=status)
+            elif status == 'Преглежда се' and Appointment.objects.filter(doctor=appointment.doctor, appointment_date=appointment.appointment_date, appointment_time=appointment.appointment_time).exists():
+                messages.info(request, 'Часът вече е зает')
+            else:
+                Appointment.objects.filter(id=appointment_id).update(status=status)
         return redirect('appointments')
-
-
+    
     if request.user.is_authenticated:
         user_email = request.user.email
         patient_appointments = Appointment.objects.filter(patient__user__email=user_email)
@@ -164,6 +189,64 @@ def appointments(request):
         """
     
     return render(request, 'appointments.html', {'html_content' : html_content})
+
+def edit_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if request.method == 'POST':
+        # Handle the form submission to update appointment details
+        changed_service = request.POST.get('changed_service')
+        changed_appointment_date = request.POST.get('changed_appointment_date')
+        changed_appointment_time = request.POST.get('changed_appointment_time')
+        changed_details = request.POST.get('changed_details')
+
+        # Check if any change is detected
+        if (changed_service is not None or
+            changed_appointment_date is not None or
+            changed_appointment_time is not None or
+            changed_details is not None):
+
+            # Create a dictionary to hold the changes
+            updates = {}
+
+            # Check and process each change individually
+            if changed_service is not None:
+                updates['service'] = changed_service
+
+            if changed_appointment_date is not None and changed_appointment_date != '':
+                appointment_datetime = datetime.strptime(changed_appointment_date, "%Y-%m-%d")
+                if appointment_datetime.date() < datetime.now().date():
+                    messages.info(request, 'Датата не трябва да е минала.')
+                    return redirect('edit_appointment', appointment_id=appointment_id)
+                else:
+                    updates['appointment_date'] = appointment_datetime
+
+            if changed_appointment_time is not None:
+                updates['appointment_time'] = changed_appointment_time
+
+            if changed_details is not None:
+                updates['details'] = changed_details
+
+            # Check if the new appointment date, time, and doctor combination exists in another non-canceled appointment
+            if 'appointment_date' in updates or 'appointment_time' in updates:
+                existing_appointment = Appointment.objects.filter(
+                    doctor=appointment.doctor,
+                    appointment_date=updates.get('appointment_date', appointment.appointment_date),
+                    appointment_time=updates.get('appointment_time', appointment.appointment_time),
+                ).exclude(id=appointment_id).exclude(status='Отказан').exists()
+
+                # If there's a conflict, display a message and redirect back to the edit page
+                if existing_appointment:
+                    messages.error(request, 'Час със същата дата и време вече съществуват.')
+                    return redirect('edit_appointment', appointment_id=appointment_id)
+
+            # Update the appointment with all the changes
+            Appointment.objects.filter(id=appointment_id).update(**updates)
+
+            return redirect('appointments')
+
+    return render(request, 'edit_appointment.html', {'appointment': appointment})
+
 
 @login_required
 def profilePage(request):

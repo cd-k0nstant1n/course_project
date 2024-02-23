@@ -29,7 +29,7 @@
             <div class = "container grid">
                 <div class = "header-inner-left">
                     <h1>Най-надеждният<br> <span>здравен помощник</span></h1>
-                    <p class = "lead">Най-добрите медицински услуги за теб и твоите деца</p>
+                    <p class = "lead">Най-добрите медицински услуги за вас и вашите деца</p>
                     {% if user.is_authenticated  %}
                         {% if user_profile.role == 'patient' %}
                         <p class = "text text-gig">Здравейте, {{user.first_name}} {{user.last_name}}</p>
@@ -112,7 +112,7 @@
         <section id = "services" class = "services py">
             <div class = "container">
                 <div class = "section-head text-center">
-                    <h2 class = "lead">Най-добрите доктори дават най-малко лекарства</h2>
+                    <h2 class = "lead">Най-добрите лекари дават най-малко лекарства</h2>
                     <p class = "text text-lg">Най-търсените ни услуги</p>
                     <div class = "line-art flex">
                         <div></div>

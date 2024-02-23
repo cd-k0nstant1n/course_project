@@ -108,13 +108,11 @@ thead th {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #d5d1defe;
+    background-color: #0052d5ad;
     text-transform: capitalize;
+    color: #fff;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #0000000b;
-}
 
 tbody tr {
     --delay: .1s;
@@ -127,7 +125,7 @@ tbody tr.hide {
 }
 
 tbody tr:hover {
-    background-color: #fff6 !important;
+    background-color: rgba(0, 0, 0, 0.075) !important;
 }
 
 tbody tr td,
@@ -245,4 +243,19 @@ thead th.asc span.icon-arrow{
     background: none;
     margin: 0;
     padding: 0;
+    border-collapse: collapse;
+}
+.delete{
+    background-color: red ; 
+}
+.delete:hover{
+    background-color: rgba(255, 0, 0, 0.473) ; 
+}
+.edit{
+    padding: 0.8rem;
+    background-color: #0ebaf3 ; 
+    border-radius: 5px;
+}
+.edit:hover{
+    background-color: #16c5ff77 ; 
 }

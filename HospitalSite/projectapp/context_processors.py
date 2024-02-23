@@ -28,15 +28,15 @@ def add_popup(request):
                 try:
                     appointment_datetime = datetime.strptime(appointment_date, "%Y-%m-%d") 
                 except ValueError:
-                    messages.info(request, 'Invalid date format.')
+                    messages.info(request, 'Невалиден формат на дата.')
             
                 if appointment_datetime.date() < datetime.now().date():
-                    messages.info(request, 'Appointment date must be in the future.')
-                       
-                if not Appointment.objects.filter(doctor=selected_doctor, appointment_date=appointment_date, appointment_time=appointment_time).exists():
+                    messages.info(request, 'Датата не трябва да е минала.')
+
+                if not Appointment.objects.filter(doctor=selected_doctor, appointment_date=appointment_date, appointment_time=appointment_time).exclude(status='Отказан').exists():
                     Appointment.objects.create(patient=patient, doctor=selected_doctor, appointment_date=appointment_date, appointment_time=appointment_time, service=service, details=details)
                 else:
-                    messages.info(request, 'This date and time are already taken.')
+                    messages.info(request, 'Час със същата дата и време вече съществуват.')
 
             except Exception as e:
                 messages.info(request, f'Error: {str(e)}')       

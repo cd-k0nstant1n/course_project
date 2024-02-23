@@ -1,0 +1,126 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Appointment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #16c5ff;
+        }
+
+        header {
+            background-color: #0050d5; /* Dark Blue */
+            padding: 1rem;
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            color: #0050d5; /* Dark Blue */
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+            border: 1px solid #0050d5; /* Dark Blue */
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #0050d5; /* Dark Blue */
+            color: #ffffff; /* White */
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #16c5ff; /* Slightly lighter blue on hover */
+        }
+        .back-button {
+          position: fixed;
+          top: 10px;
+          left: 10px;
+          padding: 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          text-decoration: none;
+      }
+        
+        
+    </style>
+</head>
+<body>
+  <button class="back-button" ><a href="{% url 'appointments' %}" class="back-button">&#8678; Назад</a></button>
+    <div class="form-container" >
+        <form class="form" method="post" action="{% url 'edit_appointment' appointment.id %}">
+          <h1>Промяна на запазен час</h1>
+            {% csrf_token %}
+            <label for="service">Променете услугата:</label>
+            <select id="service" name="changed_service">
+                <option value="None" disabled selected> {{ appointment.service }}</option>
+                <option value="Преглед">Преглед</option>
+                <option value="Химиотерапия">Химиотерапия</option>
+                <option value="Физиотерапия">Физиотерапия</option>           
+                <option value="Слагане на ваксина">Слагане на ваксина</option>           
+                <option value="Пускане на изследвания">Пускане на изследвания</option>           
+            </select>
+
+            <label for="appointment_date">Променете датата:</label>
+            <p>*Датата трябва да е в бъдещето</с>
+            <input type="date" id="appointment_date" name="changed_appointment_date" >
+        
+            <label for="appointment_time">Променете часа:</label>
+            <select id="appointment_time" name="changed_appointment_time">
+            <option value="None" disabled selected> {{ appointment.appointment_time }}</option>
+            <option value="8:00-9:00">8:00-9:00</option>
+            <option value="9:00-10:00">9:00-10:00</option>
+            <option value="10:00-11:00">10:00-11:00</option>
+            <option value="11:00-12:00">11:00-12:00</option>
+            <option value="14:00-15:00">14:00-15:00</option>
+            <option value="15:00-16:00">15:00-16:00</option>
+            <option value="16:00-17:00">16:00-17:00</option>
+            <option value="17:00-18:00">17:00-18:00</option>
+            <option value="20:00-21:00">20:00-21:00</option>
+            <option value="21:00-22:00">21:00-22:00</option>
+            <option value="22:00-23:00">22:00-23:00</option>
+        </select>
+            <label for="textarea">Променете детайлите:</label>
+            <textarea id="details" name="changed_details" rows="4" required>{{ appointment.details }}</textarea>
+          <button type="submit">Променяне</button>
+          {% for message in messages %}
+            <p style="color: red;">{{message}}</p>
+          {% endfor %}
+        </form>
+      </div>
+
+</body>
+</html>
