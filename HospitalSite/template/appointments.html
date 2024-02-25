@@ -56,10 +56,10 @@
                             <input type="hidden" name="role" value="{{ user_profile.role }}">
                             {% if appointment.status == "Преглежда се" %}
                             <button class="cancelled" name="status" value="Отказан"> Откажи</button>
-                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"> edit</a>
+                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"> <i class="fas fa-edit"></i></a>
                             {% elif appointment.status == "Отказан" %}
                             <button class="approved" name="status" value="Преглежда се"> Възобнови</button>
-                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"> edit</a>
+                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"><i class="fas fa-edit"></i></a>
                             {% endif %}
                             
                         </form>

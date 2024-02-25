@@ -22,6 +22,7 @@
 }
 html{
     font-size: 10px;
+    scroll-behavior: smooth;
 }
 body{
     font-size: 1.6rem;
@@ -32,7 +33,7 @@ img{
     width: 100%;
     display: block;
 }
-ul{
+ul{ 
     list-style: none;
 }
 a{

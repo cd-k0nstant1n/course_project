@@ -303,4 +303,7 @@ def reset_password(request):
     
     return render(request, 'reset_password.html')
 
+def pharmacy(request):
+    return render(request, 'pharmacy.html')
+
 
