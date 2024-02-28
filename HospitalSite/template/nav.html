@@ -27,10 +27,7 @@
                     <a href = "{% url 'appointments' %}" class = "nav-link">График</a>
                 </li>
                 <li class = "nav-item">
-                    <a href = "#" class = "nav-link">Новини</a>
-                </li>
-                <li class = "nav-item">
-                    <a href = "{% url 'pharmacy' %}" class = "nav-link">Аптека</a>
+                    <a href = "{% url 'news' %}" class = "nav-link">Новини</a>
                 </li>
                 {% if user.is_authenticated %}
                 
@@ -79,8 +76,6 @@
                 </a>
                 </div>
                 {% endif %}
-            
-            
             <!-- <div class = "search-bar">
                 <form>
                     <div class = "search-bar-box flex">

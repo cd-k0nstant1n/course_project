@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import auth, User
-from .models import CustomUser, Appointment, Code
+from .models import CustomUser, Appointment, Code, News_page
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -37,8 +37,11 @@ def index(request):
         return redirect('index')
 
     code = Code.objects.get(id=1)
+    
+    recent_news = News_page.objects.order_by('date')[:3]
 
     context = {
+        'recent_news' : recent_news,
         'form': form, 
         'code': code
     }
@@ -303,7 +306,10 @@ def reset_password(request):
     
     return render(request, 'reset_password.html')
 
-def pharmacy(request):
-    return render(request, 'pharmacy.html')
+def news(request):
+    
+    news = News_page.objects.all()
+    
+    return render(request, 'news.html', {'news': news})
 
 

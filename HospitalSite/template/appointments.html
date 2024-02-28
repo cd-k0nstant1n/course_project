@@ -1,4 +1,6 @@
 {% load static %}
+{% load my_custom_filters %}
+
 <!DOCTYPE html>
 <html lang="bg">        
 <head>
@@ -57,9 +59,6 @@
                             {% if appointment.status == "Преглежда се" %}
                             <button class="cancelled" name="status" value="Отказан"> Откажи</button>
                             <a class="edit" href="{% url 'edit_appointment' appointment.id %}"> <i class="fas fa-edit"></i></a>
-                            {% elif appointment.status == "Отказан" %}
-                            <button class="approved" name="status" value="Преглежда се"> Възобнови</button>
-                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"><i class="fas fa-edit"></i></a>
                             {% endif %}
                             
                         </form>
@@ -139,7 +138,7 @@
                     <td> {{appointment.patient.user.first_name}} {{appointment.patient.user.last_name}}</td>
                     <td> Dr. {{appointment.doctor.user.last_name}} </td>
                     <td> {{appointment.service}} </td>
-                    <td> {{appointment.details}} </td>
+                    <td> {{appointment.details | last_n_words:1 }} </td>
                     <td> {{appointment.appointment_time}}/{{appointment.appointment_date}} </td>
                     <td>
                         {% if  appointment.status == "Преглежда се" %}

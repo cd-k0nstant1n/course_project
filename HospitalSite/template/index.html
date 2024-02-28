@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_custom_filters %}
 
 <!DOCTYPE html>
 <html lang="bg">
@@ -223,20 +224,23 @@
                     <h2>Последните новини</h2>
                 </div>
                 <div class = "posts-inner grid">
+                    {% for post in recent_news %}
                     <article class = "post-item bg-white">
                         <div class = "img">
-                            <img src = "{% static 'images/post-1.jpg' %}">
+                            <img src = "{{post.image}}">
+                            {{post.image}}
                         </div>
                         <div class = "content">
-                            <h4>Inspiring stories of person and family centered care during a global pandemic.</h4>
-                            <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor voluptas eius recusandae sunt obcaecati esse facere cumque. Aliquid, cupiditate debitis.</p>
-                            <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quia ipsam, quis iure sed nulla.</p>
+                            <h4>{{post.heading}}</h4>
+                            <p class = "text text-sm">{{post.description | truncatewords:20 }}</p>
+                            <p class = "text text-sm"></p>
                             <div class = "info flex">
                                 <small class = "text text-sm"><i class = "fas fa-clock"></i> October 27, 2021</small>
-                                <small class = "text text-sm"><i class = "fas fa-comment"></i> 5 comments</small>
+                                <small class = "text text-sm"><i class="fas fa-newspaper"></i> От BBC news</small>
                             </div>
                         </div>
                     </article>
+                    {% endfor %}
 
                     <article class = "post-item bg-white">
                         <div class = "img">
@@ -248,7 +252,7 @@
                             <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quia ipsam, quis iure sed nulla.</p>
                             <div class = "info flex">
                                 <small class = "text text-sm"><i class = "fas fa-clock"></i> October 27, 2021</small>
-                                <small class = "text text-sm"><i class = "fas fa-comment"></i> 5 comments</small>
+                                <small class = "text text-sm"><i class="fas fa-newspaper"></i> От BBC news</small>
                             </div>
                         </div>
                     </article>
@@ -263,7 +267,7 @@
                             <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quia ipsam, quis iure sed nulla.</p>
                             <div class = "info flex">
                                 <small class = "text text-sm"><i class = "fas fa-clock"></i> October 27, 2021</small>
-                                <small class = "text text-sm"><i class = "fas fa-comment"></i> 5 comments</small>
+                                <small class = "text text-sm"><i class="fas fa-newspaper"></i> От BBC news</small>
                             </div>
                         </div>
                     </article>

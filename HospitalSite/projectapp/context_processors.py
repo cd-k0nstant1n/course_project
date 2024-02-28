@@ -15,11 +15,11 @@ def add_popup(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             patient_name = request.user
-            doctor = request.POST['doctor']
-            service = request.POST['service']        
-            details = request.POST['symptoms']        
-            appointment_date = request.POST['appointment_date']
-            appointment_time = request.POST['appointment_time']
+            doctor = request.POST.get('doctor')
+            service = request.POST.get('service')       
+            details = request.POST.get('symptoms')      
+            appointment_date = request.POST.get('appointment_date')
+            appointment_time = request.POST.get('appointment_time')
         
             try:
                 patient = CustomUser.objects.get(user=patient_name, role='patient')
