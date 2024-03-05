@@ -38,7 +38,7 @@ def index(request):
 
     code = Code.objects.get(id=1)
     
-    recent_news = News_page.objects.order_by('date')[:3]
+    recent_news = News_page.objects.all().order_by('-date')[:3]
 
     context = {
         'recent_news' : recent_news,
@@ -157,9 +157,11 @@ def appointments(request):
                 appointment.status = status
                 appointment.save()              
             return redirect('appointments')   
+        
         elif user_role == 'doctor':    
             status = request.POST['status']
-            Appointment.objects.filter(id=appointment_id).update(status=status)   
+            Appointment.objects.filter(id=appointment_id).update(status=status) 
+              
         elif user_role == 'patient':
             appointment_id = request.POST['appointment_id']
             appointment = get_object_or_404(Appointment, id=appointment_id)

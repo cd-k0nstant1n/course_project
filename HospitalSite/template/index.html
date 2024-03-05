@@ -47,6 +47,7 @@
                         <form action="{% url 'index' %}" method="post">
                             {% csrf_token %}
                             <button type="submit" name="generate_code" class = "btn btn-white">Генериране на код</button>
+                            <a href = "{% url 'admin:index' %}" class = "btn btn-light-blue">Админ панел</a>
                             <p class = "text text-lg">{{code}}</p>
                         </form>
                         
@@ -127,7 +128,7 @@
                             <img src = "{% static 'images/service-icon-1.png' %}">
                         </div>
                         <h3>Кардио мониторинг</h3>
-                        <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis possimus doloribus facilis velit, assumenda tempora quas mollitia quos voluptatibus consequatur!</p>
+                        <p class = "text text-sm">Нашата услуга за кардио мониторинг предоставя непрекъснато и точно наблюдение на сърдечната дейност, което ви дава спокойствие и осигурява, че вие и вашите близки сте в най-добри ръце.</p>
                     </article>
 
                     <article class = "service-item">
@@ -135,7 +136,7 @@
                             <img src = "{% static 'images/service-icon-2.png' %}">
                         </div>
                         <h3>Медицинско лечение</h3>
-                        <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis possimus doloribus facilis velit, assumenda tempora quas mollitia quos voluptatibus consequatur!</p>
+                        <p class = "text text-sm">Нашата мисия е да предоставим персонализирана, компетентна и цялостна медицинска грижа, която помага на пациентите да постигнат и поддържат оптимално здраве.</p>
                     </article>
 
                     <article class = "service-item">
@@ -143,15 +144,15 @@
                             <img src = "{% static 'images/service-icon-3.png' %}">
                         </div>
                         <h3>Спешна помощ</h3>
-                        <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis possimus doloribus facilis velit, assumenda tempora quas mollitia quos voluptatibus consequatur!</p>
+                        <p class = "text text-sm">Нашата спешна служба е оборудвана с най-съвременните технологии и екип от висококвалифицирани специалисти, готови да отговорят на всякакви спешни медицински нужди денонощно, 7 дни в седмицата.</p>
                     </article>
 
                     <article class = "service-item">
                         <div class = "icon">
                             <img src = "{% static 'images/service-icon-4.png' %}">
                         </div>
-                        <h3>Първа помощ</h3>
-                        <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis possimus doloribus facilis velit, assumenda tempora quas mollitia quos voluptatibus consequatur!</p>
+                        <h3>Преглед</h3>
+                        <p class = "text text-sm">Нашите медицински прегледи са проектирани да предоставят цялостна оценка на вашето здравословно състояние, като ви помагат да направите информирани избори за вашето здраве и начин на живот.</p>
                     </article>
                 </div>
             </div>
@@ -167,7 +168,7 @@
                 <div class = "banner-two-right">
                     <p class = "lead text-white">Намерете ни навсякъде независимо на какво устройство и по какво време </p>
                     <div class = "btn-group">
-                        <a href = "#" class = "btn btn-white">Научете повече</a>
+                        <!-- <a href = "#" class = "btn btn-white">Научете повече</a> -->
                         <!-- <a href = "#" class = "btn btn-light-blue">Sign In</a> -->
                     </div>
                 </div>
@@ -227,50 +228,19 @@
                     {% for post in recent_news %}
                     <article class = "post-item bg-white">
                         <div class = "img">
-                            <img src = "{{post.image}}">
-                            {{post.image}}
+                            <img src = "{{post.image.url}}">
                         </div>
                         <div class = "content">
                             <h4>{{post.heading}}</h4>
                             <p class = "text text-sm">{{post.description | truncatewords:20 }}</p>
                             <p class = "text text-sm"></p>
                             <div class = "info flex">
-                                <small class = "text text-sm"><i class = "fas fa-clock"></i> October 27, 2021</small>
-                                <small class = "text text-sm"><i class="fas fa-newspaper"></i> От BBC news</small>
+                                <small class = "text text-sm"><i class = "fas fa-clock"></i> {{post.date}}/{{post.time}}</small>
+                                <small class = "text text-sm"><i class="fas fa-newspaper"></i> От {{post.author}}</small>
                             </div>
                         </div>
                     </article>
                     {% endfor %}
-
-                    <article class = "post-item bg-white">
-                        <div class = "img">
-                            <img src = "{% static 'images/post-2.jpg'%}">
-                        </div>
-                        <div class = "content">
-                            <h4>Inspiring stories of person and family centered care during a global pandemic.</h4>
-                            <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor voluptas eius recusandae sunt obcaecati esse facere cumque. Aliquid, cupiditate debitis.</p>
-                            <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quia ipsam, quis iure sed nulla.</p>
-                            <div class = "info flex">
-                                <small class = "text text-sm"><i class = "fas fa-clock"></i> October 27, 2021</small>
-                                <small class = "text text-sm"><i class="fas fa-newspaper"></i> От BBC news</small>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class = "post-item bg-white">
-                        <div class = "img">
-                            <img src = "{% static 'images/post-3.jpg' %}">
-                        </div>
-                        <div class = "content">
-                            <h4>Inspiring stories of person and family centered care during a global pandemic.</h4>
-                            <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor voluptas eius recusandae sunt obcaecati esse facere cumque. Aliquid, cupiditate debitis.</p>
-                            <p class = "text text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis quia ipsam, quis iure sed nulla.</p>
-                            <div class = "info flex">
-                                <small class = "text text-sm"><i class = "fas fa-clock"></i> October 27, 2021</small>
-                                <small class = "text text-sm"><i class="fas fa-newspaper"></i> От BBC news</small>
-                            </div>
-                        </div>
-                    </article>
                 </div>
             </div>
         </section>

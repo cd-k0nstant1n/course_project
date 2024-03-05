@@ -164,6 +164,7 @@
                             <button class="missed" name="status" value="Пропуснат">Пропуснат </button>
                             <button class="done" name="status" value="Изпълнен">Изпълнен </button>
                             <button class="delete" name="action" value="delete"><i class="fa-solid fa-trash-can"></i> </button>
+                            <a class="edit" href="{% url 'edit_appointment' appointment.id %}"> <i class="fas fa-edit"></i></a>
                         </form> 
                     </td>
                 </tr>
