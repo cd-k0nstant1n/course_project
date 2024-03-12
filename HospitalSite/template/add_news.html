@@ -1,0 +1,95 @@
+{% extends 'news.html' %}
+
+{% block content %}
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #16c5ff;
+        }
+
+        header {
+            background-color: #0050d5; /* Dark Blue */
+            padding: 1rem;
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            color: #0050d5; /* Dark Blue */
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+            border: 1px solid #0050d5; /* Dark Blue */
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #0050d5; /* Dark Blue */
+            color: #ffffff; /* White */
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #16c5ff; /* Slightly lighter blue on hover */
+        }
+        .back-button {
+          position: fixed;
+          top: 10px;
+          left: 10px;
+          padding: 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          text-decoration: none;
+      }
+      
+        
+        
+    </style>
+</head>
+<body>
+    <button class="back-button" ><a href="{% url 'news' %}" class="back-button">&#8678; Назад</a></button>
+    <div class="form-container" >
+        <form class="form" method="post" action="{% url 'add_news' %}" enctype="multipart/form-data">
+          <h1>Добавяне на новина</h1>
+            {% csrf_token %}
+            {{form.as_p}}
+          <button type="submit">Добави</button>
+          {% for message in messages %}
+            <p style="color: red;">{{message}}</p>
+          {% endfor %}
+        </form>
+      </div>
+
+</body>
+</html>
+{% endblock content %}
+

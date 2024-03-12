@@ -138,7 +138,7 @@
                     <td> {{appointment.patient.user.first_name}} {{appointment.patient.user.last_name}}</td>
                     <td> Dr. {{appointment.doctor.user.last_name}} </td>
                     <td> {{appointment.service}} </td>
-                    <td> {{appointment.details | last_n_words:1 }} </td>
+                    <td> {{appointment.details}} </td>
                     <td> {{appointment.appointment_time}}/{{appointment.appointment_date}} </td>
                     <td>
                         {% if  appointment.status == "Преглежда се" %}

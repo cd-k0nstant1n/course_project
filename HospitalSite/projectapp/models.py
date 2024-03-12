@@ -51,7 +51,7 @@ class Code(models.Model):
     
 class News_page(models.Model):
     heading = models.CharField(max_length=255)
-    description = models.TextField()
+    content = models.TextField()
     image = models.ImageField(upload_to='images/')
     author = models.CharField(max_length=50)
     date = models.DateField()

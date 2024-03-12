@@ -19,7 +19,7 @@
             text-align: center;
         }
 
-        form {
+        .form {
             max-width: 600px;
             margin: 2rem auto;
             padding: 1.5rem;
@@ -27,12 +27,12 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        label {
+        .label {
             margin-bottom: 0.5rem;
             color: #0050d5; /* Dark Blue */
         }
 
-        input,
+        .input,
         select,
         textarea {
             width: 100%;
@@ -78,10 +78,10 @@
     
     <img src="{% static 'images/close.png' %}" alt="close" class="close">
     
-    <form action="{% url 'index' %}" method="post">
+    <form    class="form" action="{% url 'index' %}" method="post">
         {% csrf_token %}
         
-        <label for="doctor">Изберете доктор:</label>
+        <label class="label" for="doctor">Изберете доктор:</label>
         <select id="doctor" name="doctor">
             <option value="null"></option>
             {% for doctor in doctor_info %}  
@@ -90,7 +90,7 @@
             
         </select>
 
-        <label for="service">Изберете услуга:</label>
+        <label class="label" for="service">Изберете услуга:</label>
         <select id="service" name="service">
             <option value="Преглед">Преглед</option>
             <option value="Химиотерапия">Химиотерапия</option>
@@ -99,13 +99,13 @@
             <option value="Пускане на изследвания">Пускане на изследвания</option>           
         </select>
 
-        <label for="symptoms">Опишете симптомите или детайли за услуга:</label>
+        <label class="label" for="symptoms">Опишете симптомите или детайли за услуга:</label>
         <textarea id="symptoms" name="symptoms" rows="4" required></textarea>
 
-        <label for="appointment_date">Изберете дата:</label>
-        <input type="date" id="appointment_date" name="appointment_date" required>
+        <label class="label" for="appointment_date">Изберете дата:</label>
+        <input class="input" type="date" id="appointment_date" name="appointment_date" required>
 
-        <label for="appointment_time">Изберете час:</label>
+        <label class="label" for="appointment_time">Изберете час:</label>
         <select id="appointment_time" name="appointment_time" required>
             <option value="8:00-9:00">8:00-9:00</option>
             <option value="9:00-10:00">9:00-10:00</option>

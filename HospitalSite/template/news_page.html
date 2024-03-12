@@ -1,0 +1,64 @@
+{% extends 'news.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Medicure - новини</title>
+    <link rel="icon" href="{% static 'images/tab-logo.png' %}" type="image">
+
+    <style>
+        body{
+            background-color: #fff;
+            
+        }
+        .back-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'news' %}" class="back-button">&#8678; Назад</a>
+
+<main class="container">
+
+    <div class="grid">
+        <section>
+            <hgroup>
+                <h1 style="color:#0050d5">{{post.heading}}</h1>
+                <hr>
+            </hgroup>
+            <p style="color:#000">{{post.content}}</p>
+            <figure>
+                <img src="{{post.image.url}}" alt="Renewable Energy Project" />
+                <figcaption>Снимка от {{post.author}}</figcaption>
+            </figure>
+            <h3 style="color:#0050d5">Дата на публикуване</h3>
+            <p style="color:#000">{{post.date}}/{{post.time}}</p>
+            <h3 style="color:#0050d5">Автор</h3>
+            <p style="color:#000">{{post.author}}</p>
+        </section>
+    </div>
+</main>
+<footer class="container">
+    <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Use</a></small>
+</footer>
+<script src="{% static 'js/scripts.js' %}"></script>
+</body>
+{% endblock content %}
+</html>

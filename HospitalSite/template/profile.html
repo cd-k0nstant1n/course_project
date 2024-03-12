@@ -80,10 +80,19 @@
   {% for message in messages %}
   <span>{{message}}</span>
   {% endfor %}
-
+  
 </div>
 </div>
 </main>
+<div class="popup">
+  <div class="popup-container">
+      <h1 class="heading-appointment">Запазване на час:</h1>
+      {% include 'make_an_appointment.html' %} 
+      {% for message in messages %}
+      <script>alert('{{message}}')</script>
+      {% endfor %}
+  </div>
+</div>
 <script src="{% static 'js/scripts.js' %}"></script>
 
 </body>

@@ -15,5 +15,6 @@ urlpatterns = [
     path('profile', views.profilePage, name='profile'),
     path('reset_password/', views.reset_password, name='reset_password'),
     path('news/', views.news, name='news'),
-    
+    path('news/<int:pk>/', views.news_page, name='news_page'),
+    path('news/add_news/', views.add_news, name='add_news'),
     ]

@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
-def add_user_profile(request):
+def custom_user_details(request):
     if request.user.is_authenticated:
         user_profile = CustomUser.objects.get(user=request.user)
         return {'user_profile': user_profile}

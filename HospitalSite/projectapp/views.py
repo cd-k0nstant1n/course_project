@@ -11,7 +11,7 @@ import re, string, random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
-from datetime import datetime, timezone
+from datetime import datetime
 
 # Create your views here.
 def generate_code():
@@ -63,6 +63,9 @@ def register(request):
         regex_pass = re.compile('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
         regex_email = re.compile('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
         
+        if role is None or fname is None or lname is None or phone is None or pass1 is None or gender is None or birthday is None:
+            messages.info(request, 'Моля попълнете всички полета.')
+        
         if not regex_pass.match(pass1):
             messages.info(request, 'Паролата трябва да е поне 8 символа дълга и да съдържа букви и цифри.')
             return redirect('register')
@@ -78,6 +81,10 @@ def register(request):
         
         if role == 'doctor':
             code = request.POST['code']
+            
+            if code is None:
+                messages.info(request, 'Моля попълнете всички полета.') 
+            
             if not Code.objects.filter(code=code).exists():
                 messages.info(request, 'Невалиден код за доктор.')
                 return redirect('register')
@@ -91,6 +98,9 @@ def register(request):
         else:
             specialty = request.POST['specialty']
             room = request.POST['room']
+            
+            if specialty is None or room is None:
+                messages.info(request, 'Моля попълнете всички полета.')
             if CustomUser.objects.filter(room_num=room).exists():
                 CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty, gender=gender, date_of_birth=birthday, room_num=room)
             else:
@@ -112,6 +122,9 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         user = authenticate(request, username=email, password=password)
+        
+        if email is None or password is None:
+            messages.info(request, 'Моля попълнете всички полета.')
         
         if user is not None:
             auth.login(request, user)
@@ -261,6 +274,9 @@ def profilePage(request):
         confirm_password = request.POST['confirm_password']
         user = request.user
         regex_pass = re.compile('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
+        
+        if current_password is None or new_password is None or confirm_password is None:
+            messages.info(request, 'Моля попълнете всички полета.')
 
         if not user.check_password(current_password):
             messages.info(request, 'Невалидна настояща парола.')
@@ -309,9 +325,25 @@ def reset_password(request):
     return render(request, 'reset_password.html')
 
 def news(request):
-    
-    news = News_page.objects.all()
-    
+    news = News_page.objects.all().order_by('-date')    
     return render(request, 'news.html', {'news': news})
 
+def add_news(request):
+    form = add_news_form(request.POST or None, request.FILES or None)
+    if request.method == 'POST' and form.is_valid():
+        news_instance = form.save(commit=False)  # Create but don't save the instance yet
 
+        # Example of additional processing, if needed
+        if news_instance.date > datetime.now().date():  # Adjust if not using timezone-aware dates
+            messages.info(request, "Датата не може да е в бъдещето")
+            return redirect('/add_news/')  # Consider using a named URL pattern instead
+        else:
+            form.save()  # Now save the instance
+            return redirect('news')  # Assuming 'news' is a named URL pattern
+
+    # If GET or form is not valid, render the same form with validation errors
+    return render(request, 'add_news.html', {'form': form})
+
+def news_page(request, pk):
+    post = get_object_or_404(News_page, pk=pk)
+    return render(request, 'news_page.html', {'post': post})
