@@ -2,47 +2,60 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    color: #000;
-    background-color: #0050d5;
-    
+    color: #FFF; /* Changed text color to white */
+    background-color: #00296b; /* Darker blue background */
 }
+
 ::-webkit-scrollbar {
     width: 0; /* For Chrome, Safari, and newer Edge browsers */
 }
+
 .container {
     width: 100em;
     padding: 4em;
     border-radius: 8px;
+    background-color: #001c3d; /* Dark background for container, assuming you might want this change */
+    color: #FFF; /* Ensuring text within container is white */
 }
+
 .heading{
     margin-bottom: 2em !important;
+    color: #FFF; /* Changed text color to white */
 }
+
 .text-lg{
     font-size: 2rem;
     font-weight: 500;
+    color: #FFF; /* Changed text color to white */
 }
+
 .grid {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     margin-bottom: 3rem;
 }
+
 figure {
     margin: 0;
 }
+
 figcaption {
     text-align: center;
     padding-top: 8px;
+    color: #FFF; /* Changed text color to white */
 }
+
 section {
     margin-top: 2em;
-    background-color: #dedede;
+    background-color: #004082; /* Darker shade for sections */
     padding: 20px;
     border-radius: 8px;
+    color: #FFF; /* Ensuring text within sections is white */
 }
 
 .popup{
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.8); /* Darker overlay for popup */
     width: 100%;
     height: 100%;
     position: absolute;
@@ -53,14 +66,15 @@ section {
 }
 
 .popup-container{
-    background-color: #f0f8ff; /* Light Blue */
-    color: #ffff; /* White */
+    background-color: #263238; /* Darker shade for popup container */
+    color: #FFF; /* White text for popup container */
     padding: 20px;
     border-radius: 5px;
     position: relative; 
 }
+
 .heading-appointment{
-    color: #000;
+    color: #FFF; /* Changed text color to white */
 }
 
 @media screen and (max-width: 768px) {
@@ -71,8 +85,8 @@ section {
     .grid {
         grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
     }
-
 }
+
 @media screen and (max-width: 1128px) {
     .container {
         width: 90%;
@@ -81,5 +95,4 @@ section {
     .grid {
         grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
     }
-
 }

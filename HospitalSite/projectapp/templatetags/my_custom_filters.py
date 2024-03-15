@@ -4,9 +4,7 @@ register = template.Library()
 
 @register.filter(name='last_n_words')
 def last_n_words(value, arg):
-    """
-    Returns the last 'arg' words of the string 'value'.
-    """
+    
     try:
         # Ensure the argument is an integer
         num_words = int(arg)
@@ -16,4 +14,17 @@ def last_n_words(value, arg):
 
     words = value.split()
     # Return the last 'num_words' words joined by space
-    return ' '.join(words[-num_words:])
+    return '...'.join(words[-num_words:])
+
+@register.filter(name='truncateletters')
+def truncateletters(value, arg):
+    
+    try:
+        length = int(arg)
+    except ValueError:  # Invalid literal for int()
+        return value  # Fail silently.
+
+    if len(value) > length:
+        return value[:length]
+    else:
+        return value

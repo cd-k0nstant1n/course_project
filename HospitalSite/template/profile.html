@@ -15,40 +15,40 @@
 
     {% include 'nav.html' %}
 <main>
-    <br><br><br><br>
+    <br><br><br><br><br>
 <div class="container-form">
 <div class="user-details">
 
     <h3>Моят Профил:</h3>
 <div class="input-box">
-  <div class="user-details-else"></div>
+  <div class="user-details"></div>
     <span class="details">Първо име</span>
-  <input type="text"  name="first_name" placeholder="Въведете първо име" value="{{user.first_name}}" readonly>
+  <input value="{{user.first_name}}" readonly>
   </div>
 
   <div class="input-box">
     <span class="details">Фамилия</span>
-    <input type="text" name="last_name"  value="{{user.last_name}}" readonly>
+    <input value="{{user.last_name}}" readonly>
   </div>
   
   <div class="input-box">
     <span class="details">Имейл</span>
-    <input type="email" name = "mail" placeholder="Въведете имейл" value="{{user.email}}" readonly>
+    <input value="{{user.email}}" readonly>
   </div>
 
   <div class="input-box">
     <span class="details">Дата на раждане</span>
-    <input type="text" name = ""  value="{{user_profile.date_of_birth}}" readonly>
+    <input value="{{user_profile.date_of_birth}}" readonly>
   </div>
 
   <div class="input-box">
     <span class="details">Пол</span>
-    <input type="text" name = "" value="{{user_profile.gender}}" readonly>
+    <input value="{{user_profile.gender}}" readonly>
   </div>
 
   <div class="input-box">
     <span class="details">Телефонен номер</span>
-    <input type="tel" name = "phone"  value="{{user_profile.phone}}" readonly>
+    <input value="{{user_profile.phone}}" readonly>
   </div>
   <hr>
   <h3>Промяна на паролата:</h3>
@@ -66,9 +66,14 @@
     <span id="error" style="color:red" class="error_pass"></span>
   </div>
 
-  <div class="input-box-center" >
+  <div class="input-box" >
     <span class="details">Потвърждение на парола</span>
     <input type="password" placeholder="Потвърдете парола" name="confirm_password" id="pass2" onkeyup="validate()" required>
+  </div>
+
+  <div class="input-box-no-border">
+    <span class="user-details">Промяна на профилна снимка</span>
+    <input type="file" placeholder="Потвърдете парола" >
   </div>
   
 </div>

@@ -25,21 +25,23 @@
     <section id="head">
     <header class = "header bg-blue">
         {% include 'nav.html' %}
-
+        
         <div class = "header-inner text-white text-center">
             <div class = "container grid">
                 <div class = "header-inner-left">
+                    
+                    
                     <h1>Най-надеждният<br> <span>здравен помощник</span></h1>
                     <p class = "lead">Най-добрите медицински услуги за вас и вашите деца</p>
                     {% if user.is_authenticated  %}
                         {% if user_profile.role == 'patient' %}
-                        <p class = "text text-gig">Здравейте, {{user.first_name}} {{user.last_name}}</p>
+                        <p class = "text text-gig"></p>
                     <div class = "btn-group">
                         <a href = "#" class = "btn btn-white">Спешен случай!?</a>
                         <a href = "#" class = "btn btn-light-blue appointment">Запази час</a>
                     </div>
                         {% elif user_profile.role == 'doctor' %}
-                        <p class = "text text-lg">Здравейте, Dr. {{user.first_name}} {{user.last_name}}</p>
+                        <p class = "text text-gig"></p>
                         <div class = "btn-group">
                         <a href = "#" class = "btn btn-white">Спешен случай!?</a>
                         {% else %}
@@ -184,35 +186,20 @@
                 </div>
 
                 <div class = "doc-panel-inner grid">
+                    
+                    {% for doctor in top_doctors_info %}
                     <div class = "doc-panel-item">
                         <div class = "img flex">
-                            <img src = "{% static 'images/doc-1.png' %}" alt = "doctor image">
+                            <img src = "{{doctor.profile_image.url}}" alt = "doctor image">
+                            
                             <div class = "info text-center bg-blue text-white flex">
-                                <p class = "lead">samuel goe</p>
-                                <p class = "text-lg">Medicine</p>
+                                <p class = "lead">Д-р {{doctor.first_name}} {{doctor.last_name}} </p>
+                                <p class = "text-lg">{{doctor.specialty}}</p>
                             </div>
+                            
                         </div>
                     </div>
-
-                    <div class = "doc-panel-item">
-                        <div class = "img flex">
-                            <img src = "{% static 'images/doc-2.png' %}" alt = "doctor image">
-                            <div class = "info text-center bg-blue text-white flex">
-                                <p class = "lead">elizabeth ira</p>
-                                <p class = "text-lg">Cardiology</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class = "doc-panel-item">
-                        <div class = "img flex">
-                            <img src = "{% static 'images/doc-3.png' %}" alt = "doctor image">
-                            <div class = "info text-center bg-blue text-white flex">
-                                <p class = "lead">tanya collins</p>
-                                <p class = "text-lg">Medicine</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -242,8 +229,13 @@
                     </article>
                     {% endfor %}
                 </div>
+                <div class="center-btn-container">
+                    <a href = "{% url 'news' %}" class = "btn btn-white" style="margin-top:1rem;">Научете повече</a>
+                </div>
             </div>
+
         </section>
+        
         <!-- end of posts section -->
 
         <!-- contact section -->

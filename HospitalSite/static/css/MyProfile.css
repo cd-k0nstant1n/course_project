@@ -57,6 +57,19 @@ h3 {
   border: 1px solid #ccc;
   border-bottom-width: 2px;
 }
+
+.user-details .input-box-no-border input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-top: 15px;
+  border: 1px solid transparent;
+  border-bottom-width: 2px;
+}
+
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
   border-color:#0050d5;

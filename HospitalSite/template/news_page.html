@@ -8,7 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <title>Medicure - новини</title>
     <link rel="icon" href="{% static 'images/tab-logo.png' %}" type="image">
 
@@ -33,8 +32,9 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'news' %}" class="back-button">&#8678; Назад</a>
-
+    <!-- <a href="{% url 'news' %}" class="back-button">&#8678; Назад</a> -->
+    {% include 'nav.html' %}
+    <br><br><br><br><br><br>
 <main class="container">
 
     <div class="grid">
@@ -43,14 +43,14 @@
                 <h1 style="color:#0050d5">{{post.heading}}</h1>
                 <hr>
             </hgroup>
-            <p style="color:#000">{{post.content}}</p>
             <figure>
-                <img src="{{post.image.url}}" alt="Renewable Energy Project" />
+                <img class="img" src="{{post.image.url}}" alt="Renewable Energy Project" />
                 <figcaption>Снимка от {{post.author}}</figcaption>
             </figure>
-            <h3 style="color:#0050d5">Дата на публикуване</h3>
+            <p style="color:#000">{{post.content}}</p>
+            <h2 style="color:#0050d5">Дата на публикуване</h2>
             <p style="color:#000">{{post.date}}/{{post.time}}</p>
-            <h3 style="color:#0050d5">Автор</h3>
+            <h2 style="color:#0050d5">Автор</h2>
             <p style="color:#000">{{post.author}}</p>
         </section>
     </div>

@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
 from datetime import datetime
+from django.db.models import Count
+
 
 # Create your views here.
 def generate_code():
@@ -38,12 +40,18 @@ def index(request):
 
     code = Code.objects.get(id=1)
     
+    top_doctors = CustomUser.objects.filter(role='doctor') \
+    .annotate(num_appointments=Count('doctor_appointments')) \
+    .order_by('-num_appointments')[:3]    
+    top_doctors_info = [{'first_name': profile.user.first_name ,'last_name' : profile.user.last_name, 'specialty': profile.specialty, 'profile_image': profile.profile_image} for profile in top_doctors]
+    
     recent_news = News_page.objects.all().order_by('-date')[:3]
 
     context = {
         'recent_news' : recent_news,
         'form': form, 
-        'code': code
+        'code': code,
+        'top_doctors_info' : top_doctors_info
     }
     
     return render(request, 'index.html', context)

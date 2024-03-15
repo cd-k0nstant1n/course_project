@@ -5,13 +5,6 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
-@media print {
- .table, .table__body {
-  overflow: visible;
-  height: auto !important;
-  width: auto !important;
- }
-}
 
 .table {
     width: 82vw;
@@ -102,6 +95,7 @@ table, th, td {
     border-collapse: collapse;
     padding: 1rem;
     text-align: left;
+    text-align: center;
 }
 
 thead th {
@@ -259,3 +253,4 @@ thead th.asc span.icon-arrow{
 .edit:hover{
     background-color: #16c5ff77 ; 
 }
+

@@ -91,6 +91,12 @@ a{
         -ms-flex-align: center;
             align-items: center;
 }
+.center-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  
+}
 .btn-group .btn{
     width: 100%;
 }
@@ -169,8 +175,9 @@ h1, h2, h3{
     top: 0;
     left: 0;
     width: 100%;
-    padding: 3.2rem 0;
+    padding: 1.5rem 0;
     z-index: 999;
+    box-shadow: var(--box-shadow);
 }
 .navbar .container{
     -webkit-box-pack: justify;
@@ -250,33 +257,7 @@ button[class ^= navbar]:hover{
         -ms-transform: translateX(10px);
             transform: translateX(10px);
 }
-.search-icon{
-    display: block;
-    width: 27px;
-    margin-right: 1rem;
-}
-.search-control::-webkit-input-placeholder{
-    color: var(--light-gray);
-}
-.search-control::-moz-placeholder{
-    color: var(--light-gray);
-}
-.search-control:-ms-input-placeholder{
-    color: var(--light-gray);
-}
-.search-control::-ms-input-placeholder{
-    color: var(--light-gray);
-}
-.search-control::placeholder{
-    color: var(--light-gray);
-}
-.search-control{
-    height: 27px;
-    width: 100%;
-    border-radius: 1.9rem;
-    border: 2px solid var(--light-gray);
-    padding: 0 1.5rem;
-}
+
 
 /* header inner */
 .header-inner{
@@ -957,8 +938,11 @@ button[class ^= navbar]:hover{
         opacity: 1;
         width: 100%;
     }
-    .search-bar{
+    .profile{
         margin-left: 5.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .search-inner-right{
         width: 100%;

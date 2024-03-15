@@ -42,7 +42,7 @@ def add_popup(request):
                 messages.info(request, f'Error: {str(e)}')       
         
     doctors = CustomUser.objects.filter(role='doctor')
-    doctor_info = [{'last_name' : profile.user.last_name, 'specialty': profile.specialty} for profile in doctors]
+    doctor_info = [{'first_name': profile.user.first_name ,'last_name' : profile.user.last_name, 'specialty': profile.specialty, 'profile_image': profile.profile_image} for profile in doctors]
     
 
     return {'doctor_info' : doctor_info}
