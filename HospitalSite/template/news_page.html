@@ -1,64 +1,66 @@
 {% extends 'news.html' %}
 {% load static %}
 
-<!DOCTYPE html>
+
 <html lang="bg">
-
-{% block content %}
+    {% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Medicure - новини</title>
-    <link rel="icon" href="{% static 'images/tab-logo.png' %}" type="image">
-
-    <style>
-        body{
-            background-color: #fff;
-            
-        }
-        .back-button {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/newsPageStyle.css' %}">
+  <title>Medicure - новини</title>
 </head>
 <body>
-    <!-- <a href="{% url 'news' %}" class="back-button">&#8678; Назад</a> -->
     {% include 'nav.html' %}
     <br><br><br><br><br><br>
-<main class="container">
-
-    <div class="grid">
-        <section>
-            <hgroup>
-                <h1 style="color:#0050d5">{{post.heading}}</h1>
-                <hr>
-            </hgroup>
-            <figure>
-                <img class="img" src="{{post.image.url}}" alt="Renewable Energy Project" />
-                <figcaption>Снимка от {{post.author}}</figcaption>
-            </figure>
-            <p style="color:#000">{{post.content}}</p>
-            <h2 style="color:#0050d5">Дата на публикуване</h2>
-            <p style="color:#000">{{post.date}}/{{post.time}}</p>
-            <h2 style="color:#0050d5">Автор</h2>
-            <p style="color:#000">{{post.author}}</p>
-        </section>
+    <div class="popup">
+        <div class="popup-container">
+            <h1 class="heading-appointment">Запазване на час:</h1>
+            {% include 'make_an_appointment.html' %} 
+            {% for message in messages %}
+            <script>alert('{{message}}')</script>
+            {% endfor %}
+        </div>
     </div>
-</main>
-<footer class="container">
-    <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Use</a></small>
-</footer>
-<script src="{% static 'js/scripts.js' %}"></script>
+  <div class="container">
+    
+    <header>
+    <h1 class="heading-1">{{post.heading}}</h1>
+    <div class="sub-heading">
+      <p style="color:#0050d5">{{post.date}}/{{post.time}}</p>
+      <!-- <p class="importent" style="color:#0050d5">your right to know</p> -->
+    </div>
+    </header>
+
+    <div class="main">
+      <div class="home">
+        <div class="left">
+          <img src="{{post.image.url}}" class="home-img" alt="Paper photo">
+
+        
+        </div>
+
+        <div class="right">
+          <h3 class="heading-3" style="color:#0050d5">Последните новини</h3>
+          <div class="lists">
+            {% for new in news %}
+            <a href="{% url 'news' %}"><div class="list">
+              <img src="{{new.image.url}}" alt="photo">
+              <p>{{new.heading | truncatewords:10}}</p>
+            </div></a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <article>
+        <p>{{post.content}}</p>
+      </article>
+    </div>
+  </div>
+
+  <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 {% endblock content %}
 </html>

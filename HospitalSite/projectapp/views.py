@@ -354,4 +354,11 @@ def add_news(request):
 
 def news_page(request, pk):
     post = get_object_or_404(News_page, pk=pk)
-    return render(request, 'news_page.html', {'post': post})
+    news = News_page.objects.all().order_by('-date')[:6] 
+
+    context = {
+        'post' : post,
+        'news' : news
+    }
+
+    return render(request, 'news_page.html', context)

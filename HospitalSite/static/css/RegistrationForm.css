@@ -11,8 +11,7 @@ body{
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-color: #16c5ff;
-  /* background-image: url("../../images/school-06.jpg") */
+  background-size: cover;
 }
 .container{
   max-width: 700px;

@@ -39,7 +39,7 @@
                     <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}" style="font-size: large;">Излизане</a></li>
                 </ul>
                     <div class="profile">
-                        <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic1.png' %}" alt="profilepic"></a> 
+                        <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic1.png' %}" alt="profilepic" ></a> 
                         <p class = "text-sm" style="color:white;">Здравейте, {{ user.first_name | truncateletters:1 }}. {{user.last_name}}</p>
                     </div>
                     {% elif  user_profile.role == 'doctor' and user_profile.gender == 'male' %}
@@ -78,7 +78,7 @@
                     {% endif %}
                 {% else %}
             </ul>
-                <div class="search-bar">
+                <div class="profile">
                     <a class="btn btn-light-blue" href="{% url 'login' %}">
                  Влизане
                 </a>
