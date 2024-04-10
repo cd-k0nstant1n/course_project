@@ -1,4 +1,5 @@
 {% extends 'news.html' %}
+{% load static%}
 
 {% block content %}
 <head>
@@ -75,7 +76,7 @@
         
     </style>
 </head>
-<body>
+<body style="background-image: url({% static  'images/login_background.webp' %});">
     <button class="back-button" ><a href="{% url 'news' %}" class="back-button">&#8678; Назад</a></button>
     <div class="form-container" >
         <form class="form" method="post" action="{% url 'add_news' %}" enctype="multipart/form-data">

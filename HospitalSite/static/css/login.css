@@ -8,8 +8,8 @@
 }
 body{
   overflow: hidden;
-  background-size: cover;
-  
+  background-size:auto; 
+  background-repeat: no-repeat;
 }
 ::selection{
   background: rgba(26,188,156,0.3);

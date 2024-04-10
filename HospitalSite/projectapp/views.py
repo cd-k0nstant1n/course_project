@@ -11,11 +11,18 @@ import re, string, random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
-from datetime import datetime
+from datetime import datetime, date
 from django.db.models import Count
 
 
 # Create your views here.
+def calculate_age(birthdate):
+    if isinstance(birthdate, str):
+        birthdate = datetime.strptime(birthdate, "%Y-%m-%d").date()
+    today = date.today()
+    age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+    return age
+
 def generate_code():
     characters = string.ascii_letters + string.digits + string.punctuation
     random_code = ''.join(random.choice(characters) for _ in range(50))
@@ -85,6 +92,9 @@ def register(request):
             return redirect('register')
         elif CustomUser.objects.filter(phone=phone).exists():
             messages.info(request, 'Този телефон вече се използва')
+            return redirect('register')
+        elif calculate_age(birthday) < 18:
+            messages.info(request, 'Трябва да сте поне на 18 години за да се регистрирате!')
             return redirect('register')
         
         if role == 'doctor':
@@ -277,14 +287,12 @@ def edit_appointment(request, appointment_id):
 @login_required
 def profilePage(request):
     if request.method == 'POST':
-        current_password = request.POST['current_password']
-        new_password = request.POST['new_password']
-        confirm_password = request.POST['confirm_password']
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
         user = request.user
         regex_pass = re.compile('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
         
-        if current_password is None or new_password is None or confirm_password is None:
-            messages.info(request, 'Моля попълнете всички полета.')
 
         if not user.check_password(current_password):
             messages.info(request, 'Невалидна настояща парола.')

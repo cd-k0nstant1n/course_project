@@ -257,6 +257,9 @@ button[class ^= navbar]:hover{
         -ms-transform: translateX(10px);
             transform: translateX(10px);
 }
+.profile-text{
+    color: #000;
+}
 
 
 /* header inner */
@@ -943,6 +946,9 @@ button[class ^= navbar]:hover{
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    .profile-text{
+        color: #fff;
     }
     .search-inner-right{
         width: 100%;

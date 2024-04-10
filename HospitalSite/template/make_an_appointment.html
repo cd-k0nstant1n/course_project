@@ -82,7 +82,6 @@
         
         <label class="label" for="doctor">Изберете доктор:</label>
         <select id="doctor" name="doctor">
-            <option value="null"></option>
             {% for doctor in doctor_info %}  
             <option value="{{doctor.last_name}}">Dr. {{doctor.last_name}} - {{doctor.specialty}}</option>
             {% endfor %}

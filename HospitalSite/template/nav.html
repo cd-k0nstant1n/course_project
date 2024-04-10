@@ -40,14 +40,14 @@
                 </ul>
                     <div class="profile">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic1.png' %}" alt="profilepic" ></a> 
-                        <p class = "text-sm" style="color:white;">Здравейте, {{ user.first_name | truncateletters:1 }}. {{user.last_name}}</p>
+                        <p class = "text-sm profile-text" >Здравейте, {{ user.first_name | truncateletters:1 }}. {{user.last_name}}</p>
                     </div>
                     {% elif  user_profile.role == 'doctor' and user_profile.gender == 'male' %}
                     <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}" style="font-size: large;">Излизане</a></li>
                 </ul>
                     <div class="profile">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 60px; width:60px;" src="{% static 'images/profilepic3.png' %}" alt="profilepic"></a>
-                        <p class = "text text-sm" style="color:white;">Здравейте, Д-р {{user.first_name | truncateletters:1}}. {{user.last_name}}</p>
+                        <p class = "text-sm profile-text" >Здравейте, Д-р {{user.first_name | truncateletters:1}}. {{user.last_name}}</p>
                     </div>
                     {% elif user_profile.role == 'patient' and user_profile.gender == 'female' %}
                     <li class = "nav-item">
@@ -57,14 +57,14 @@
                 </ul>
                     <div class="profile">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic2.png' %}" alt="profilepic"></a>
-                        <p class = "text-sm" style="color:white;">Здравейте, {{ user.first_name | truncateletters:1 }}. {{user.last_name}}</p>
+                        <p class = "text-sm profile-text" >Здравейте, {{ user.first_name | truncateletters:1 }}. {{user.last_name}}</p>
                     </div>
                     {% elif  user_profile.role == 'doctor' and user_profile.gender == 'female' %}
-                    <li class = "nav-item"><a class="nav-link" href="{% url 'logout' %}" style="font-size: large;">Излизане</a></li>
+                    <li class = "nav-item profile-text"><a class="nav-link" href="{% url 'logout' %}" style="font-size: large;">Излизане</a></li>
                 </ul>
                     <div class="profile">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 80px; width:80px;" src="{% static 'images/profilepic4.png' %}" alt="profilepic"></a>
-                        <p class = "text-sm" style="color:white;">Здравейте, Д-р {{ user.first_name | truncateletters:1 }}. {{user.last_name}}</p>
+                        <p class = "text-sm profile-text" >Здравейте, Д-р {{ user.first_name | truncateletters:1 }}. {{user.last_name}}</p>
 
                     </div>
                     {% else %}
@@ -72,7 +72,7 @@
                 </ul>
                     <div class="profile">
                         <a href="{% url 'profile' %}"><img class="profile-img" style="height: 50px; width:50px;" src="{% static 'images/profilepic5.png' %}" alt="profilepic"></a>
-                        <p class = "text-sm" style="color:white;">Здравейте,  {{ user.first_name }}</p>
+                        <p class = "text-sm profile-text" >Здравейте,  {{ user.first_name }}</p>
 
                     </div>
                     {% endif %}
