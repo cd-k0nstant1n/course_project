@@ -9,7 +9,7 @@
     <link rel="icon" href="{% static 'images/tab-logo.png' %}" type="image">
     <link rel="stylesheet" href="{% static 'css/edit_appointment.css' %}">
 </head>
-<body style="background-image: url( {% static  '../static/images/login_background.webp' %});">
+<body >
   <button class="back-button" ><a href="{% url 'appointments' %}" class="back-button">&#8678; Назад</a></button>
     <div class="form-container" >
         <form class="form" method="post" action="{% url 'edit_appointment' appointment.id %}">
