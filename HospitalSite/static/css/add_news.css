@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #16c5ff;
+    background-size: cover;
     background-image: url('../images/login_background.webp');
 }
 

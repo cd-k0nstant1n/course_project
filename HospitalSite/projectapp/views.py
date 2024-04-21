@@ -15,7 +15,6 @@ from datetime import datetime, date
 from django.db.models import Count
 
 
-# Create your views here.
 def calculate_age(birthdate):
     if isinstance(birthdate, str):
         birthdate = datetime.strptime(birthdate, "%Y-%m-%d").date()
@@ -322,8 +321,7 @@ def reset_password(request):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-           return HttpResponse("Този имейл не същесвува.")
-
+            messages.info(request, 'Успешно променихте паролата си.')
         temp_password = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
     
         user.password = make_password(temp_password)
@@ -347,17 +345,15 @@ def news(request):
 def add_news(request):
     form = add_news_form(request.POST or None, request.FILES or None)
     if request.method == 'POST' and form.is_valid():
-        news_instance = form.save(commit=False)  # Create but don't save the instance yet
+        news_instance = form.save(commit=False)  
 
-        # Example of additional processing, if needed
-        if news_instance.date > datetime.now().date():  # Adjust if not using timezone-aware dates
+        if news_instance.date > datetime.now().date(): 
             messages.info(request, "Датата не може да е в бъдещето")
-            return redirect('/add_news/')  # Consider using a named URL pattern instead
+            return redirect('/add_news/') 
         else:
-            form.save()  # Now save the instance
-            return redirect('news')  # Assuming 'news' is a named URL pattern
-
-    # If GET or form is not valid, render the same form with validation errors
+            form.save()  
+            return redirect('news')  
+        
     return render(request, 'add_news.html', {'form': form})
 
 def news_page(request, pk):

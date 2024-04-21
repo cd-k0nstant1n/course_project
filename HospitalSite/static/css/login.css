@@ -8,8 +8,7 @@
 }
 body{
   overflow: hidden;
-  background-size:auto; 
-  background-repeat: no-repeat;
+  background-image: url( '../images/login_background.webp');
 }
 ::selection{
   background: rgba(26,188,156,0.3);

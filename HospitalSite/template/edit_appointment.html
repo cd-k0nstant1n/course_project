@@ -13,9 +13,9 @@
   <button class="back-button" ><a href="{% url 'appointments' %}" class="back-button">&#8678; Назад</a></button>
     <div class="form-container" >
         <form class="form" method="post" action="{% url 'edit_appointment' appointment.id %}">
-          <h1>Промяна на запазен час</h1>
+          <h1>Редактиране на запазен час</h1>
             {% csrf_token %}
-            <label for="service">Променете услугата:</label>
+            <label for="service">Редактиране услугата:</label>
             <select id="service" name="changed_service">
                 <option value="None" disabled selected> {{ appointment.service }}</option>
                 <option value="Преглед">Преглед</option>
@@ -25,13 +25,12 @@
                 <option value="Пускане на изследвания">Пускане на изследвания</option>           
             </select>
 
-            <label for="appointment_date">Променете датата:</label>
-            <p>*Датата трябва да е в бъдещето</с>
+            <label for="appointment_date">Редактиране датата:</label>
+            <p>*Датата трябва да е в бъдещето</p>
             <input type="date" id="appointment_date" name="changed_appointment_date" >
         
-            <label for="appointment_time">Променете часа:</label>
+            <label for="appointment_time">Редактиране часа:</label>
             <select id="appointment_time" name="changed_appointment_time">
-            <option value="None" disabled selected> {{ appointment.appointment_time }}</option>
             <option value="8:00-9:00">8:00-9:00</option>
             <option value="9:00-10:00">9:00-10:00</option>
             <option value="10:00-11:00">10:00-11:00</option>
@@ -44,9 +43,9 @@
             <option value="21:00-22:00">21:00-22:00</option>
             <option value="22:00-23:00">22:00-23:00</option>
         </select>
-            <label for="textarea">Променете детайлите:</label>
-            <textarea id="details" name="changed_details" rows="4" required>{{ appointment.details }}</textarea>
-          <button type="submit">Променяне</button>
+            <label for="textarea">Редактиране детайлите:</label>
+            <textarea id="details" name="changed_details" rows="4" >{{ appointment.details }}</textarea>
+          <button type="submit">Редактиране</button>
           {% for message in messages %}
             <p style="color: red;">{{message}}</p>
           {% endfor %}

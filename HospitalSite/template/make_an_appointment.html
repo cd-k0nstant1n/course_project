@@ -95,12 +95,14 @@
             <option value="Физиотерапия">Физиотерапия</option>           
             <option value="Слагане на ваксина">Слагане на ваксина</option>           
             <option value="Пускане на изследвания">Пускане на изследвания</option>           
+            <option value="Кардио мониторинг">Кардио мониторинг</option>           
         </select>
 
         <label class="label" for="symptoms">Опишете симптомите или детайли за услуга:</label>
         <textarea id="symptoms" name="symptoms" rows="4" required></textarea>
 
         <label class="label" for="appointment_date">Изберете дата:</label>
+        <p style="color: #000;">*Датата трябва да е в бъдещето</p>
         <input class="input" type="date" id="appointment_date" name="appointment_date" required>
 
         <label class="label" for="appointment_time">Изберете час:</label>
