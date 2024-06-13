@@ -7,8 +7,13 @@
   
 }
 body{
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
   overflow: hidden;
   background-image: url( '../images/login_background.webp');
+  background-size: cover;
 }
 ::selection{
   background: rgba(26,188,156,0.3);

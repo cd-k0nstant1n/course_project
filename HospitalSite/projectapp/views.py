@@ -66,65 +66,75 @@ def index(request):
 
 def register(request):
     if request.method == 'POST':
-        role = request.POST['role']
-        fname = request.POST['first_name']
-        lname = request.POST['last_name']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        pass1 = request.POST['pass1']
-        gender = request.POST['gender']
-        birthday = request.POST['birthday']
-        regex_pass = re.compile('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
-        regex_email = re.compile('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-        
-        if role is None or fname is None or lname is None or phone is None or pass1 is None or gender is None or birthday is None:
+        role = request.POST.get('role')
+        fname = request.POST.get('first_name')
+        lname = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        pass1 = request.POST.get('pass1')
+        gender = request.POST.get('gender')
+        birthday = request.POST.get('birthday')
+        regex_pass = re.compile(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
+        regex_email = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+
+        if not all([role, fname, lname, email, phone, pass1, gender, birthday]):
             messages.info(request, 'Моля попълнете всички полета.')
-        
-        if not regex_pass.match(pass1):
-            messages.info(request, 'Паролата трябва да е поне 8 символа дълга и да съдържа букви и цифри.')
             return redirect('register')
-        elif User.objects.filter(email=email).exists():
+
+        if not regex_pass.match(pass1):
+            messages.info(request, 'Паролата трябва да е поне 8 символа дълга и да съдържа букви на латинеца и цифри.')
+            return redirect('register')
+
+        if User.objects.filter(email=email).exists():
             messages.info(request, 'Този имейл вече съществува')
             return redirect('register')
-        elif not regex_email.match(email):
+
+        if not regex_email.match(email):
             messages.info(request, 'Този имейл е невалиден')
             return redirect('register')
-        elif CustomUser.objects.filter(phone=phone).exists():
+
+        if CustomUser.objects.filter(phone=phone).exists():
             messages.info(request, 'Този телефон вече се използва')
             return redirect('register')
-        elif calculate_age(birthday) < 18:
+
+        if calculate_age(birthday) < 18:
             messages.info(request, 'Трябва да сте поне на 18 години за да се регистрирате!')
             return redirect('register')
-        
+
         if role == 'doctor':
-            code = request.POST['code']
-            
-            if code is None:
-                messages.info(request, 'Моля попълнете всички полета.') 
-            
+            code = request.POST.get('code')
+
+            if not code:
+                messages.info(request, 'Моля попълнете всички полета.')
+                return redirect('register')
+
             if not Code.objects.filter(code=code).exists():
                 messages.info(request, 'Невалиден код за доктор.')
                 return redirect('register')
-            else:
-                generate_code()
-        
-        user = User.objects.create_user(username=email, email=email, password=pass1, first_name=fname, last_name=lname)
-        if role == 'patient':
-            CustomUser.objects.create(user=user, phone=phone, role=role, gender=gender, date_of_birth=birthday)
-            return redirect('login')
-        else:
-            specialty = request.POST['specialty']
-            room = request.POST['room']
-            
-            if specialty is None or room is None:
+
+            specialty = request.POST.get('specialty')
+            room = request.POST.get('room')
+
+            if not all([specialty, room]):
                 messages.info(request, 'Моля попълнете всички полета.')
+                return redirect('register')
+
             if CustomUser.objects.filter(room_num=room).exists():
-                CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty, gender=gender, date_of_birth=birthday, room_num=room)
-            else:
                 messages.info(request, 'Tази стая вече е използвана.')
                 return redirect('register')
-              
-            return redirect('login')
+
+        # Only create the user after all validations
+        user = User.objects.create_user(username=email, email=email, password=pass1, first_name=fname, last_name=lname)
+
+        if role == 'patient':
+            CustomUser.objects.create(user=user, phone=phone, role=role, gender=gender, date_of_birth=birthday)
+        elif role == 'doctor':
+            specialty = request.POST.get('specialty')
+            room = request.POST.get('room')
+            CustomUser.objects.create(user=user, phone=phone, role=role, specialty=specialty, gender=gender, date_of_birth=birthday, room_num=room)
+            generate_code()
+
+        return redirect('login')
 
     return render(request, 'RegistrationForm.html')
         
@@ -297,7 +307,7 @@ def profilePage(request):
             messages.info(request, 'Невалидна настояща парола.')
             return redirect('profile')    
         elif not regex_pass.match(new_password):
-            messages.info(request, 'Новата парола трябва да е поне 8 символа дълга и да съдържа букви и цифри.')
+            messages.info(request, 'Новата парола трябва да е поне 8 символа дълга и да съдържа букви на латинеца и цифри.')
             return redirect('profile')
         elif current_password == new_password:
             messages.info(request, "Новата парола не може да е същата като старата.")
@@ -349,7 +359,7 @@ def add_news(request):
 
         if news_instance.date > datetime.now().date(): 
             messages.info(request, "Датата не може да е в бъдещето")
-            return redirect('/add_news/') 
+            return redirect('add_news') 
         else:
             form.save()  
             return redirect('news')  

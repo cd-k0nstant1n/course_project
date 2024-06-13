@@ -21,7 +21,6 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Appointment)
-admin.site.register(CustomUser)
 admin.site.register(Code)
 admin.site.register(News_page)
 

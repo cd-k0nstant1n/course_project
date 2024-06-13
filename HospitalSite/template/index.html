@@ -34,13 +34,13 @@
                         {% if user_profile.role == 'patient' %}
                         <p class = "text text-gig"></p>
                     <div class = "btn-group">
-                        <a href = "#" class = "btn" style="background-color: red; color:white;">Спешен случай!?</a>
+                        <a href = "tel:+35988-287-3312" class = "btn" style="background-color: red; color:white;">📞 Спешен случай!?</a>
                         <a href = "#" class = "btn btn-light-blue appointment">Запази час</a>
                     </div>
                         {% elif user_profile.role == 'doctor' %}
                         <p class = "text text-gig"></p>
                         <div class = "btn-group">
-                        <a href = "#" class = "btn" style="background-color: red; color:white;">Спешен случай!?</a>
+                        <a href = "tel:+35988-287-3312" class = "btn" style="background-color: red; color:white;">📞 Спешен случай!?</a>
                         {% else %}
                         
                         <form action="{% url 'index' %}" method="post">
@@ -54,7 +54,7 @@
                     {% else %}
                         <p class = "text text-lg">Още не сте член? Присъединете се за да запазите час или да видите графика си.</p>
                         <div class = "btn-group">
-                        <a href = "#" style="background-color: red; color:white;" class = "btn btn-white">Спешен случай!?</a>
+                        <a href = "tel:088-287-3312" style="background-color: red; color:white;" class = "btn btn-white">📞 Спешен случай!?</a>
                         <a href = "{% url 'register' %}" class = "btn btn-light-blue">Регистриране</a>
                     </div>
                     {% endif %}

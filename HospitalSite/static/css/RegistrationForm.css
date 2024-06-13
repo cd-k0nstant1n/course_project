@@ -12,6 +12,7 @@ body{
   align-items: center;
   padding: 10px;
   background-size: cover;
+  background-image: url( '../images/login_background.webp');
 }
 .container{
   max-width: 700px;
